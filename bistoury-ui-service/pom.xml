@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>bistoury</artifactId>
+        <groupId>qunar.tc.bistoury</groupId>
+        <version>2.0.7</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>bistoury-ui-service</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>qunar.tc.bistoury</groupId>
+            <artifactId>bistoury-serverside-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>qunar.tc.bistoury</groupId>
+            <artifactId>bistoury-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>qunar.tc.bistoury</groupId>
+            <artifactId>bistoury-application-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.gitlab</groupId>
+            <artifactId>java-gitlab-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${server_java_source_version}</source>
+                    <target>${server_java_target_version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
