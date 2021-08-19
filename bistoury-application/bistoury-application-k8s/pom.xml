@@ -3,47 +3,43 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>bistoury</artifactId>
+        <artifactId>bistoury-application</artifactId>
         <groupId>qunar.tc.bistoury</groupId>
         <version>2.0.7</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bistoury-ui-service-impl</artifactId>
+    <artifactId>bistoury-application-k8s</artifactId>
 
+    <properties>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+    </properties>
     <dependencies>
-        <dependency>
-            <groupId>qunar.tc.bistoury</groupId>
-            <artifactId>bistoury-ui-service</artifactId>
-        </dependency>
         <dependency>
             <groupId>qunar.tc.bistoury</groupId>
             <artifactId>bistoury-application-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>qunar.tc.bistoury</groupId>
-            <artifactId>bistoury-application-mysql</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.kubernetes</groupId>
+            <artifactId>client-java</artifactId>
+            <version>13.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit-dep</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
         <dependency>
             <groupId>qunar.tc.bistoury</groupId>
-            <artifactId>bistoury-application-k8s</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jdbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.java-websocket</groupId>
-            <artifactId>Java-WebSocket</artifactId>
+            <artifactId>bistoury-common</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -58,5 +54,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

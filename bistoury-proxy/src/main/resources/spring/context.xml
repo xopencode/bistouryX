@@ -7,8 +7,7 @@
 	<import resource="database.xml"/>
 
 	<context:component-scan base-package="qunar.tc.bistoury.proxy,
-    qunar.tc.bistoury.application.mysql.service,
-     qunar.tc.bistoury.application.mysql.dao">
+    qunar.tc.bistoury.application.k8s.service">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	<bean id="registryStore" class="qunar.tc.bistoury.serverside.store.RegistryStore"></bean>
