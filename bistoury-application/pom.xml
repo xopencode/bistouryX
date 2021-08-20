@@ -19,7 +19,8 @@
 	<modules>
 		<module>bistoury-application-api</module>
 		<module>bistoury-application-mysql</module>
-	</modules>
+        <module>bistoury-application-k8s</module>
+    </modules>
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>

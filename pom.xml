@@ -101,6 +101,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven_deploy_skip>false</maven_deploy_skip>
+        <skipTests>true</skipTests>
 
         <metrics.version>3.0.2</metrics.version>
         <rocksdb.version>5.17.2</rocksdb.version>
@@ -227,6 +228,11 @@
             <dependency>
                 <groupId>qunar.tc.bistoury</groupId>
                 <artifactId>bistoury-application-mysql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>qunar.tc.bistoury</groupId>
+                <artifactId>bistoury-application-k8s</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
