@@ -25,10 +25,6 @@
             <artifactId>bistoury-application-mysql</artifactId>
         </dependency>
         <dependency>
-            <groupId>qunar.tc.bistoury</groupId>
-            <artifactId>bistoury-application-k8s</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
