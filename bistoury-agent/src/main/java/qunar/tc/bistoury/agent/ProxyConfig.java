@@ -21,14 +21,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author zhenyu.nie created on 2018 2018/10/25 19:09
+ * @author xiaoailiang update on 2021 2021/09/03 19:00
+ * 单个Proxy配置类
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class ProxyConfig {
-
+    //Proxy IP地址
     private String ip;
-
+    //Proxy 端口
     private int port;
-
+    //Proxy 心跳
     private int heartbeatSec;
 
     public String getIp() {

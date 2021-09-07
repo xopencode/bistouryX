@@ -43,6 +43,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author zhenyu.nie created on 2018 2018/10/25 16:37
+ * @author xiaoailiang update on 2021 2021/09/03 19:00
  */
 class AgentNettyClient {
 

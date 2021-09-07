@@ -23,12 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author zhenyu.nie created on 2018 2018/10/9 11:07
+ * @author xiaoailiang update on 2021 2021/09/03 19:00
+ * 远程请求结果实体类结构
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonResult<T> {
-
+    //请求状态编号
     private int status;
+    //请求状态描述信息
     private String message;
+    //远程请求泛化业务实体
     private T data;
 
     public JsonResult() {

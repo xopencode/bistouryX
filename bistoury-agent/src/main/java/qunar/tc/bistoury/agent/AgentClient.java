@@ -29,19 +29,21 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhenyu.nie created on 2018 2018/10/25 16:00
+ * @author xiaoailiang update on 2021 2021/09/03 19:00
+ * Agent 连接客户端
  */
 public class AgentClient {
 
     private static final Logger logger = LoggerFactory.getLogger(AgentClient.class);
-
+    //agent失败切换线程池
     private static final ScheduledExecutorService FAILOVER_EXECUTOR = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("bistoury-agent-failover", true));
-
+    //单利
     private static final AgentClient INSTANCE = new AgentClient();
-
+    //单利方法
     public static AgentClient getInstance() {
         return INSTANCE;
     }
-
+    //agent工作线程池
     private final EventLoopGroup WORK_GROUP = new NioEventLoopGroup(Integer.parseInt(System.getProperty("bistoury.agent.workgroup.num", "2")), new NamedThreadFactory("bistoury-agent-netty"));
 
     private boolean start = false;
@@ -73,6 +75,9 @@ public class AgentClient {
         }
     }
 
+    /**
+     * 重新开启Agent客户端连接
+     */
     private void refreshClient() {
         logger.info("start refresh bistoury netty client");
         try {
@@ -89,6 +94,11 @@ public class AgentClient {
         }
     }
 
+    /**
+     * 初始化 Agent Netty 连接客户端
+     * @param proxyConfig 代理配置对象
+     * @return 返回Proxy连接客户端
+     */
     private AgentNettyClient initNettyClient(ProxyConfig proxyConfig) {
         AgentNettyClient agentNettyClient = new AgentNettyClient(proxyConfig, WORK_GROUP);
         agentNettyClient.start();

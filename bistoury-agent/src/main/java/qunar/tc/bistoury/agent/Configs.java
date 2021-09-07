@@ -29,18 +29,21 @@ import qunar.tc.bistoury.common.JsonResult;
 
 /**
  * @author zhenyu.nie created on 2018 2018/10/25 17:08
+ * @author xiaoailiang update on 2021 2021/09/03 19:00
+ * Agent配置类
  */
 class Configs {
 
     private static final Logger logger = LoggerFactory.getLogger(Configs.class);
-
-
-    private static final TypeReference<JsonResult<ProxyConfig>> PROXY_REFERENCE = new TypeReference<JsonResult<ProxyConfig>>() {
-    };
-
+    //ProxyConfig类型的Json结构体
+    private static final TypeReference<JsonResult<ProxyConfig>> PROXY_REFERENCE = new TypeReference<JsonResult<ProxyConfig>>() {};
+    //Proxy请求资源地址
     private static final String PROXY_URI = "/proxy/config/foragent";
 
-
+    /**
+     * 获取远程连接的ProxyConfig类
+     * @return
+     */
     public static ProxyConfig getProxyConfig() {
         String bistouryProxyHost = System.getProperty("bistoury.proxy.host");
         if (Strings.isNullOrEmpty(bistouryProxyHost)) {
@@ -49,7 +52,11 @@ class Configs {
         return getProxyConfig(bistouryProxyHost);
     }
 
-
+    /**
+     * 远程请求获取需要远程连接的ProxyConfig类
+     * @param bistouryHost
+     * @return
+     */
     private static ProxyConfig getProxyConfig(String bistouryHost) {
         String url = "http://" + bistouryHost + PROXY_URI;
         try {
