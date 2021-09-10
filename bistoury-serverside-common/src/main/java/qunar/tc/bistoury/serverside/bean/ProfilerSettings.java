@@ -1,15 +1,30 @@
 package qunar.tc.bistoury.serverside.bean;
 
+/**
+ * @author 肖哥弹架构
+ * @date 2019/7/2 16:03
+ * @describe 性能设置
+ */
 public class ProfilerSettings {
-
+    /**
+     * 应用编号
+     */
     private String appCode;
-
+    /**
+     * 持续时间
+     */
     private int duration;
-
+    /**
+     * 时间间隔
+     */
     private int interval;
-
+    /**
+     * 采用模型
+     */
     private int mode;
-
+    /**
+     * 执行命令
+     */
     private String command;
 
     public ProfilerSettings(String appCode) {

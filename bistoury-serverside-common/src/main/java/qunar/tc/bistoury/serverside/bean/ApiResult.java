@@ -18,16 +18,23 @@
 package qunar.tc.bistoury.serverside.bean;
 
 /**
- * @author leix.xie
+ * @author 肖哥弹架构
  * @date 2019/7/2 16:03
- * @describe
+ * @describe API请求结果包装类
  */
 public class ApiResult<T> {
-
+    /**
+     * 状态
+     */
     private Integer status;
-
+    /**
+     * 状态消息
+     */
     private String message;
 
+    /**
+     * 结果数据
+     */
     private T data;
 
     public ApiResult() {

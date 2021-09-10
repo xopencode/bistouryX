@@ -30,36 +30,45 @@ import javax.annotation.PostConstruct;
 
 /**
  * @author leix.xie
+ * @author  肖哥弹架构
  * @date 2019/5/23 16:22
- * @describe
+ * @update 2021/9/07 18:45
+ * @describe Proxy为Agent提供服务连接地址
  */
 @Controller
 public class ProxyConfigForAgentGetController {
-
+    //代理配置对象
     private ProxyConfig proxyConfig;
 
+    /**
+     * 初始化
+     */
     @PostConstruct
     public void init() {
+        //获取动态配置
         DynamicConfig dynamicConfig = DynamicConfigLoader.load("global.properties");
-
-        proxyConfig = new ProxyConfig(
-                LocalHost.getLocalHost(),
-                dynamicConfig.getInt("agent.newport", -1),
-                dynamicConfig.getInt("heartbeatSec", 30));
+        proxyConfig = new ProxyConfig(LocalHost.getLocalHost(), dynamicConfig.getInt("agent.newport", -1), dynamicConfig.getInt("heartbeatSec", 30));
     }
 
+    /**
+     *
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/proxy/config/foragent")
     public ApiResult getProxyConfig() {
         return ResultHelper.success(proxyConfig);
     }
 
+    /**
+     * 代理配置对象
+     */
     private static class ProxyConfig {
-
+        //Ip地址
         private final String ip;
-
+        //端口
         private final int port;
-
+        //心跳间隔
         private final int heartbeatSec;
 
         private ProxyConfig(String ip, int port, int heartbeatSec) {

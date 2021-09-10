@@ -32,6 +32,10 @@ import static qunar.tc.bistoury.common.BistouryConstants.PROFILER_ROOT_PATH;
 
 /**
  * @author cai.wen created on 2019/10/25 16:52
+ * @author  肖哥弹架构
+ * @date 2019/5/23 16:22
+ * @update 2021/9/07 18:45
+ * @describe Proxy为Agent提供服务连接地址
  */
 @Controller
 @RequestMapping("/proxy/profiler")

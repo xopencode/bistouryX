@@ -18,9 +18,9 @@
 package qunar.tc.bistoury.serverside.bean;
 
 /**
- * @author leix.xie
+ * @author 肖哥弹架构
  * @date 2019/7/2 16:04
- * @describe
+ * @describe API请求状态枚举
  */
 public enum ApiStatus {
     SUCCESS(0, "成功"),

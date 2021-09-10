@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author zhenyu.nie created on 2018 2018/10/9 11:07
- * @author xiaoailiang update on 2021 2021/09/03 19:00
+ * @author 肖哥弹架构 update on 2021 2021/09/03 19:00
  * 远程请求结果实体类结构
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

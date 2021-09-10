@@ -21,9 +21,9 @@ import qunar.tc.bistoury.serverside.bean.ApiResult;
 import qunar.tc.bistoury.serverside.bean.ApiStatus;
 
 /**
- * @author leix.xie
- * @date 2019/7/2 16:02
- * @describe
+ * @author 肖哥弹架构
+ * @date 2021/09/06
+ * @describe 结果工具类
  */
 public class ResultHelper {
 

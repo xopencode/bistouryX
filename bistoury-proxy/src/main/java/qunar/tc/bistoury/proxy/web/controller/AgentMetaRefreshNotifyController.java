@@ -34,24 +34,38 @@ import java.util.List;
 
 /**
  * @author leix.xie
- * @date 2019/6/20 20:05
+ * @author  肖哥弹架构
+ * @date 2019/5/23 16:22
+ * @update 2021/9/07 18:45
  * @describe
  */
 @Controller
 public class AgentMetaRefreshNotifyController {
     private static final Logger logger = LoggerFactory.getLogger(AgentMetaRefreshNotifyController.class);
 
-    private static final TypeReference<List<String>> TYPE_REFERENCE = new TypeReference<List<String>>() {
-    };
+    /**
+     * Json List类型定义
+     */
+    private static final TypeReference<List<String>> TYPE_REFERENCE = new TypeReference<List<String>>(){};
 
+    /**
+     * Agent信息管理对象
+     */
     @Autowired
     private AgentInfoManager agentInfoManager;
 
+    /**
+     * 获取
+     * @param req
+     * @return
+     */
     @RequestMapping("/proxy/agent/metaRefresh")
     @ResponseBody
     public ApiResult agentMetaRefresh(HttpServletRequest req) {
         try {
+            //将HTTP请求内容序列化为AgentId集合
             List<String> agentIds = JacksonSerializer.deSerialize(req.getInputStream(), TYPE_REFERENCE);
+            //更新AgentIds列表
             agentInfoManager.updateAgentInfo(agentIds);
             return ResultHelper.success();
         } catch (Exception e) {

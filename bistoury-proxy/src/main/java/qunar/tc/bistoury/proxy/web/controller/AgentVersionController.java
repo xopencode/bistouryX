@@ -36,8 +36,10 @@ import java.util.stream.Collectors;
 
 /**
  * @author leix.xie
- * @date 2019/6/21 12:00
- * @describe
+ * @author  肖哥弹架构
+ * @date 2019/5/23 16:22
+ * @update 2021/9/07 18:45
+ * @describe Proxy为Agent提供服务连接地址
  */
 @Controller
 @RequestMapping("/proxy/agent/version")

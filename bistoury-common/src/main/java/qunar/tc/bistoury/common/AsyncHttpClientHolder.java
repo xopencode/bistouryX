@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author zhenyu.nie created on 2017 2017/8/25 17:26
- * @author xiaoailiang update on 2021 2021/09/03 19:00
+ * @author 肖哥弹架构 update on 2021 2021/09/03 19:00
  * 异步客户端
  */
 public class AsyncHttpClientHolder {

@@ -5,32 +5,59 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.sql.Timestamp;
 
 /**
- * @author cai.wen created on 2019/10/29 20:39
+ * @author 肖哥弹架构
+ * @date 2019/7/2 16:03
+ * @describe API请求结果包装类
  */
 public class Profiler {
-
+    /**
+     * 编号
+     */
     private long id;
-
+    /**
+     * 性能优化编号
+     */
     private String profilerId;
-
+    /**
+     * 操作者
+     */
     private String operator;
-
+    /**
+     * 应用编号
+     */
     private String appCode;
-
+    /**
+     * agent编号
+     */
     private String agentId;
-
+    /**
+     * 应用进程编号
+     */
     private int pid;
 
+    /**
+     * 开始时间
+     */
     private Timestamp startTime;
-
+    /**
+     * 更新时间
+     */
     private Timestamp updateTime;
-
+    /**
+     * 运行状态
+     */
     private State state;
-
+    /**
+     * 持续时间
+     */
     private int duration;
-
+    /**
+     * 时间间隔
+     */
     private int interval;
-
+    /**
+     * 采样模型
+     */
     private Mode mode;
 
     public State getState() {
@@ -131,10 +158,30 @@ public class Profiler {
         this.mode = mode;
     }
 
+    /**
+     * 状态枚举
+     */
     public enum State {
-
-        start(0), stop(1), ready(2), analyzed(3), error(4);
-
+        /**
+         * 开始状态
+         */
+        start(0),
+        /**
+         * 停止状态
+         */
+        stop(1),
+        /**
+         * 就绪状态
+         */
+        ready(2),
+        /**
+         * 分析状态
+         */
+        analyzed(3),
+        error(4);
+        /**
+         * 枚举值
+         */
         public final int code;
 
         State(int code) {
@@ -151,10 +198,21 @@ public class Profiler {
         }
     }
 
+    /**
+     * 模型
+     */
     public enum Mode {
-
-        sampler(1), async_sampler(0);
-
+        /**
+         * 同步采样
+         */
+        sampler(1),
+        /**
+         * 异步采样
+         */
+        async_sampler(0);
+        /**
+         * 枚举值
+         */
         public final int code;
 
         Mode(int code) {
