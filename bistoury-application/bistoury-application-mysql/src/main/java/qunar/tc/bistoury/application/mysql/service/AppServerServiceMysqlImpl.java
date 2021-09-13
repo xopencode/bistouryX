@@ -37,9 +37,9 @@ import java.util.List;
  * @describe
  */
 @Service
-public class AppServerServiceImpl implements AppServerService {
+public class AppServerServiceMysqlImpl implements AppServerService {
 
-    private static final Logger logger = LoggerFactory.getLogger(AppServerServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppServerServiceMysqlImpl.class);
 
     @Autowired
     private AppServerDao appServerDao;

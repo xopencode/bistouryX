@@ -23,11 +23,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author zhenyu.nie created on 2019 2019/5/15 13:49
+ * @author 肖哥弹架构
+ * @update 2021/09/06
+ * @describe  Agent信息管理
  */
 public interface AgentInfoManager {
 
+    /**
+     * 获取指定IP Agent信息
+     * @param ip Agent IP
+     * @return Agent信息
+     */
     ListenableFuture<Map<String, String>> getAgentInfo(String ip);
 
+    /**
+     * 更新Agent信息
+     * @param agentIds agent id 集合
+     */
     void updateAgentInfo(List<String> agentIds);
 }

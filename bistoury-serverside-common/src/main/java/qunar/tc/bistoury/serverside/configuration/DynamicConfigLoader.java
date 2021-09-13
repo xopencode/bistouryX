@@ -21,16 +21,24 @@ package qunar.tc.bistoury.serverside.configuration;
 import java.util.ServiceLoader;
 
 /**
- * @author keli.wang
- * @since 2018-11-23
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc 动态配置加载管理类
  */
 public final class DynamicConfigLoader {
-    // TODO(keli.wang): can we set this using config?
+    /**
+     * 单利动态工厂
+     */
     private static final DynamicConfigFactory FACTORY;
 
+    /**
+     * 静态代码块（SPI插件机制"META-INF/services/"）
+     */
     static {
+        //SPI插件机制对象
         ServiceLoader<DynamicConfigFactory> factories = ServiceLoader.load(DynamicConfigFactory.class);
         DynamicConfigFactory instance = null;
+        //获取动态配置工厂,获取第一个则退出
         for (DynamicConfigFactory factory : factories) {
             instance = factory;
             break;
@@ -39,13 +47,23 @@ public final class DynamicConfigLoader {
         FACTORY = instance;
     }
 
-    private DynamicConfigLoader() {
-    }
-
+    /**
+     * 根据名字创建动态配置对象
+     * @param name 动态配置名
+     * @param <T> 动态配置泛化实体
+     * @return DynamicConfig
+     */
     public static <T> DynamicConfig<T> load(final String name) {
         return load(name, true);
     }
 
+    /**
+     * 根据动态配置名加载动态配置对象
+     * @param name 动态配置名
+     * @param failOnNotExist 是否不存在则失败
+     * @param <T> 动态配置泛化实体
+     * @return DynamicConfig
+     */
     @SuppressWarnings("unchecked")
     public static <T> DynamicConfig<T> load(final String name, final boolean failOnNotExist) {
         return FACTORY.create(name, failOnNotExist);

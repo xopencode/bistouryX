@@ -52,9 +52,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author leix.xie
- * @date 2019-07-18 11:32
- * @describe
+ * @author 肖哥弹架构
+ * @date 2021-09-09
+ * @describe Proxy 网络服务管理
  */
 @Component
 public class NettyServerManager {

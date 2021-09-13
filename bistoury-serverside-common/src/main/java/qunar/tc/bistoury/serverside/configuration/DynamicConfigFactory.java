@@ -19,9 +19,16 @@
 package qunar.tc.bistoury.serverside.configuration;
 
 /**
- * @author keli.wang
- * @since 2018-11-23
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc 动态配置工厂
  */
-public interface DynamicConfigFactory<T> {
+public interface DynamicConfigFactory<T>{
+    /**
+     * 创建动态配置策略
+     * @param name 动态配置名
+     * @param failOnNotExist 配置文件不存在则抛异常
+     * @return 动态配置对象
+     */
     DynamicConfig<T> create(String name, boolean failOnNotExist);
 }

@@ -61,7 +61,9 @@ public class AgentGetController {
      * 代理信息
      */
     private static class AgentInfo {
-        //IP
+        /**
+         * IP
+         */
         private final String ip;
 
         public AgentInfo(String ip) {

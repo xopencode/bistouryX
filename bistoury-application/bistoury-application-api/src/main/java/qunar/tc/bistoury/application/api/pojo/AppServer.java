@@ -18,19 +18,46 @@
 package qunar.tc.bistoury.application.api.pojo;
 
 /**
- * @author leix.xie
- * @date 2019/7/2 14:55
- * @describe
+ * @author 肖哥弹架构
+ * @update 2021/09/06
+ * @describe 应用服务实体类
  */
 public class AppServer {
+    /**
+     * 服务编号
+     */
     private String serverId;
+    /**
+     * IP地址
+     */
     private String ip;
+    /**
+     * 服务端口
+     */
     private int port;
+    /**
+     * 服务主机地址
+     */
     private String host;
+    /**
+     * 服务日志目录
+     */
     private String logDir;
+    /**
+     * 服务所属房间
+     */
     private String room;
+    /**
+     * 应用编号
+     */
     private String appCode;
+    /**
+     * 服务是否自动Jstack,默认为false
+     */
     private boolean autoJStackEnable = false;
+    /**
+     * 服务是否自动Jmap直方图,默认为false
+     */
     private boolean autoJMapHistoEnable = false;
 
     public AppServer() {

@@ -36,9 +36,9 @@ import java.lang.management.ManagementFactory;
 import java.util.List;
 
 /**
- * @author: leix.xie
- * @date: 2019/7/15 11:12
- * @describe：注意：本地调试启动前请设置bistoury.conf参数
+ * @author: 肖哥弹架构
+ * @date:  2022-09-08
+ * @describe：Proxy启动入口，注意：本地调试启动前请设置bistoury.conf参数
  */
 public class Bootstrap {
     private static final Logger logger = LoggerFactory.getLogger(Bootstrap.class);
@@ -52,30 +52,27 @@ public class Bootstrap {
             }
 
             DynamicConfig<LocalDynamicConfig> config = DynamicConfigLoader.load("server.properties");
-
             int port = config.getInt("tomcat.port");
             System.setProperty("bistoury.tomcat.port", String.valueOf(port));
 
             Tomcat tomcat = new Tomcat();
-            tomcat.setPort(port);
-
-            tomcat.setBaseDir(config.getString("tomcat.basedir"));
-            tomcat.getHost().setAutoDeploy(false);
+                   tomcat.setPort(port);
+                   tomcat.setBaseDir(config.getString("tomcat.basedir"));
+                   tomcat.getHost().setAutoDeploy(false);
 
             final String webappDirLocation = getWebappDirLocation();
 
-            StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-
             String contextPath = "";
-            ctx.setPath(contextPath);
-            ctx.addLifecycleListener(new Tomcat.FixContextListener());
-            ctx.setName("bistoury-proxy");
+            StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
+                            ctx.setPath(contextPath);
+                            ctx.addLifecycleListener(new Tomcat.FixContextListener());
+                            ctx.setName("bistoury-proxy");
             tomcat.getHost().addChild(ctx);
-
             log(webappDirLocation, confDir);
-
             logger.info("Server配置加载完成，正在启动中...");
+            //启动服务
             tomcat.start();
+            //获取Tomcat服务并进入Waiting状态
             tomcat.getServer().await();
         } catch (Exception e) {
             logger.error("Server启动失败...", e);
@@ -94,34 +91,22 @@ public class Bootstrap {
         logger.info("Server webapp docBase: {}", new File("" + webappDirLocation).getAbsolutePath());
         logger.info("Server project dir:    {}", new File("").getAbsolutePath());
         logger.info("Server config dir:     {}", confDir);
-        logger.info(sm.getString("versionLoggerListener.serverInfo.server.version",
-                ServerInfo.getServerInfo()));
-        logger.info(sm.getString("versionLoggerListener.serverInfo.server.built",
-                ServerInfo.getServerBuilt()));
-        logger.info(sm.getString("versionLoggerListener.serverInfo.server.number",
-                ServerInfo.getServerNumber()));
-        logger.info(sm.getString("versionLoggerListener.os.name",
-                System.getProperty("os.name")));
-        logger.info(sm.getString("versionLoggerListener.os.version",
-                System.getProperty("os.version")));
-        logger.info(sm.getString("versionLoggerListener.os.arch",
-                System.getProperty("os.arch")));
-        logger.info(sm.getString("versionLoggerListener.java.home",
-                System.getProperty("java.home")));
-        logger.info(sm.getString("versionLoggerListener.vm.version",
-                System.getProperty("java.runtime.version")));
-        logger.info(sm.getString("versionLoggerListener.vm.vendor",
-                System.getProperty("java.vm.vendor")));
-        logger.info(sm.getString("versionLoggerListener.catalina.base",
-                System.getProperty("catalina.base")));
-        logger.info(sm.getString("versionLoggerListener.catalina.home",
-                System.getProperty("catalina.home")));
+        logger.info(sm.getString("versionLoggerListener.serverInfo.server.version", ServerInfo.getServerInfo()));
+        logger.info(sm.getString("versionLoggerListener.serverInfo.server.built", ServerInfo.getServerBuilt()));
+        logger.info(sm.getString("versionLoggerListener.serverInfo.server.number", ServerInfo.getServerNumber()));
+        logger.info(sm.getString("versionLoggerListener.os.name", System.getProperty("os.name")));
+        logger.info(sm.getString("versionLoggerListener.os.version", System.getProperty("os.version")));
+        logger.info(sm.getString("versionLoggerListener.os.arch", System.getProperty("os.arch")));
+        logger.info(sm.getString("versionLoggerListener.java.home", System.getProperty("java.home")));
+        logger.info(sm.getString("versionLoggerListener.vm.version", System.getProperty("java.runtime.version")));
+        logger.info(sm.getString("versionLoggerListener.vm.vendor", System.getProperty("java.vm.vendor")));
+        logger.info(sm.getString("versionLoggerListener.catalina.base", System.getProperty("catalina.base")));
+        logger.info(sm.getString("versionLoggerListener.catalina.home", System.getProperty("catalina.home")));
         //argument
         List<String> args = ManagementFactory.getRuntimeMXBean().getInputArguments();
         for (String arg : args) {
             logger.info(sm.getString("versionLoggerListener.arg", arg));
         }
 
-        ServerManager.printServerConfig();
     }
 }

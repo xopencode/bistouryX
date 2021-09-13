@@ -22,15 +22,30 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author leix.xie
- * @date 2019/7/2 10:48
- * @describe
+ * @author 肖哥弹架构
+ * @update 2021/09/06
+ * @describe 应用实体类
  */
 public class Application implements Serializable {
+    /**
+     * 编号
+     */
     private int id;
+    /**
+     * 编码
+     */
     private String code;
+    /**
+     * 应用名
+     */
     private String name;
+    /**
+     * 应用组编号
+     */
     private String groupCode;
+    /**
+     * 应用拥有者
+     */
     private List<String> owner;
     /**
      * UNAUDIT(0, "未审核"),
@@ -39,7 +54,13 @@ public class Application implements Serializable {
      * DISCARD(3, "已废弃");
      */
     private int status;
+    /**
+     * 应用创建者
+     */
     private String creator;
+    /**
+     * 应用创建时间
+     */
     private Date createTime;
 
     public Application() {

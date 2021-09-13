@@ -27,18 +27,35 @@ import qunar.tc.bistoury.serverside.bean.ApiStatus;
  */
 public class ResultHelper {
 
+    /**
+     * 为成功状态下的空结果成功状态
+     * @return
+     */
     public static ApiResult success() {
 
         return new ApiResult<>(ApiStatus.SUCCESS.getCode(), "成功", null);
     }
 
+    /**
+     * 为成功状态下的请求结果的API包装对象
+     * @param data 响应结果
+     * @param <T> 结果泛型
+     * @return ApiResult
+     */
     public static <T> ApiResult success(T data) {
 
         return new ApiResult<>(ApiStatus.SUCCESS.getCode(), "成功", data);
     }
 
+    /**
+     * 为成功状态下的请求结果的API包装对象
+     * @param code 响应状态码
+     * @param message 响应消息
+     * @param data 响应结果
+     * @param <T> <T> 结果泛型
+     * @return ApiResult
+     */
     public static <T> ApiResult success(int code, String message, T data) {
-
         return new ApiResult<>(code, message, data);
     }
 

@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2019/8/14
  */
 @Service
-public class AdminAppServiceImpl implements AdminAppService {
+public class AdminAppServiceK8sImpl implements AdminAppService {
 
     private static final ScheduledExecutorService SCHEDULED_EXECUTOR_SERVICE =
             Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("refresh-all-app"));

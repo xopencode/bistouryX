@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * @since 2019/8/14
  */
 @Service
-public class ApplicationServiceImpl implements ApplicationService {
+public class ApplicationServiceMysqlImpl implements ApplicationService {
 
     @Autowired
     private ApplicationDao applicationDao;
@@ -33,7 +33,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Autowired
     private ApplicationUserDao applicationUserDao;
 
-    private static final Logger logger = LoggerFactory.getLogger(ApplicationServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationServiceMysqlImpl.class);
 
     private static final Pattern normalize = Pattern.compile("[0-9a-zA-Z_\\-]+$");
 

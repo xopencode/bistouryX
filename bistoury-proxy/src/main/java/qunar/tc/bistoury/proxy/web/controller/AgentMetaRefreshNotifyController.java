@@ -37,7 +37,7 @@ import java.util.List;
  * @author  肖哥弹架构
  * @date 2019/5/23 16:22
  * @update 2021/9/07 18:45
- * @describe
+ * @describe Agent元数据通知刷新控制层
  */
 @Controller
 public class AgentMetaRefreshNotifyController {
@@ -56,8 +56,8 @@ public class AgentMetaRefreshNotifyController {
 
     /**
      * 获取
-     * @param req
-     * @return
+     * @param req  HttpServletRequest
+     * @return 响应结果
      */
     @RequestMapping("/proxy/agent/metaRefresh")
     @ResponseBody

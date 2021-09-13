@@ -41,7 +41,9 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * @author zhenyu.nie created on 2019 2019/5/15 14:21
+ * @author 肖哥弹架构
+ * @update 2021/09/06
+ * @describe  Agent信息管理
  */
 @Service
 public class DefaultAgentInfoManager implements AgentInfoManager {
@@ -49,16 +51,24 @@ public class DefaultAgentInfoManager implements AgentInfoManager {
     private static final Logger logger = LoggerFactory.getLogger(DefaultAgentInfoManager.class);
 
     private Map<String, String> agentConfig;
-
+    /**
+     * ID生成器
+     */
     @Autowired
     private IdGenerator generator;
-
+    /**
+     * 代理连接存储
+     */
     @Autowired
     private AgentConnectionStore agentConnectionStore;
-
+    /**
+     * 代理信息覆盖
+     */
     @Autowired
     private AgentInfoOverride agentInfoOverride;
-
+    /**
+     * 应用服务
+     */
     @Autowired
     private AppServerService appServerService;
 

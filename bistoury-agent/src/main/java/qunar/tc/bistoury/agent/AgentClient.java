@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author zhenyu.nie created on 2018 2018/10/25 16:00
  * @author 肖哥弹架构 update on 2021 2021/09/03 19:00
- * Agent 连接客户端
+ * @desc Agent 连接客户端
  */
 public class AgentClient {
 

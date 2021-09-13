@@ -23,21 +23,36 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**
- * @author zhenyu.nie created on 2018 2018/11/9 11:27
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc 注册中心信息管理
  */
 public class RegistryStore {
 
+    /**
+     * 默认ZK注册中心地址
+     */
     private static final String DEFAULT_ZK = "default";
-
+    /**
+     * 注册中心配置属性文件
+     */
     private static final String REGISTRY_CONFIG = "registry.properties";
-
+    /**
+     * 代理基础地址
+     */
     private String newBaseRoot = "/bistoury/proxy/new/group/";
-
+    /**
+     * 注册中心地址
+     */
     private String zkAddress;
-
+    /**
+     * Proxy UI地址
+     */
     private String pathForNewUi;
 
-
+    /**
+     * 初始化(获取UI与ZK地址)
+     */
     @PostConstruct
     public void init() {
         Map<String, String> registries = DynamicConfigLoader.load(REGISTRY_CONFIG).asMap();

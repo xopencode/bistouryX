@@ -21,7 +21,9 @@ package qunar.tc.bistoury.serverside.configuration;
 import java.util.Map;
 
 /**
- * User: zhaohuiyu Date: 12/24/12 Time: 4:12 PM
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc 动态配置能力
  */
 public interface DynamicConfig<T> {
     void addListener(Listener<T> listener);

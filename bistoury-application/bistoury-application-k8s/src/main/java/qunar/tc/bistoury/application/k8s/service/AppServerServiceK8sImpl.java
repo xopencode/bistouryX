@@ -31,7 +31,7 @@ import java.util.List;
  * @describe
  */
 @Service
-public class AppServerServiceImpl implements AppServerService {
+public class AppServerServiceK8sImpl implements AppServerService {
 
     @Override
     public List<AppServer> getAppServerByAppCode(final String appCode) {

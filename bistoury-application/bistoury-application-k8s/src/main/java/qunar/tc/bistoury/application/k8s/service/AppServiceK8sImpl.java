@@ -15,16 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package qunar.tc.bistoury.application.mysql.service;
+package qunar.tc.bistoury.application.k8s.service;
 
-import com.google.common.collect.Sets;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import qunar.tc.bistoury.application.api.AppService;
 import qunar.tc.bistoury.application.api.pojo.Application;
-import qunar.tc.bistoury.application.mysql.dao.ApplicationDao;
-import qunar.tc.bistoury.application.mysql.dao.ApplicationUserDao;
+import qunar.tc.bistoury.application.k8s.util.K8SUtils;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,29 +32,34 @@ import java.util.Set;
  * @author zhenyu.nie created on 2018 2018/10/31 13:56
  */
 @Service
-public class AppServiceImpl implements AppService {
+public class AppServiceK8sImpl implements AppService {
 
-    @Autowired
-    private ApplicationDao applicationDao;
-
-    @Autowired
-    private ApplicationUserDao applicationUserDao;
 
     @Override
     public Set<String> getApps(String userCode) {
-        List<String> appCodes = this.applicationUserDao.getAppCodesByUserCode(userCode);
-        return Sets.newHashSet(appCodes);
+        Set<String> set = new HashSet<>();
+        List<Application> applications = K8SUtils.getAllAppOrServer(K8SUtils.APPLICATION);
+        applications.forEach(application -> {
+            set.add(application.getName());
+        });
+        return set;
     }
 
     @Override
     public Application getAppInfo(String appCode) {
-        return this.applicationDao.getApplicationByAppCode(appCode);
+        Set<Application> set = new HashSet<>();
+        List<Application> applications = K8SUtils.getAllAppOrServer(K8SUtils.APPLICATION);
+        applications.forEach(application -> {
+            if (StringUtils.equals(appCode, application.getCode())) {
+                set.add(application);
+            }
+        });
+        return set.iterator().next();
     }
 
     @Override
     public boolean checkUserPermission(final String appCode, final String usercode) {
-        List<String> users = this.applicationUserDao.getUsersByAppCode(appCode);
-        return users != null && users.contains(usercode);
+        return true;
     }
 
 }

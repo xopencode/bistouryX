@@ -27,13 +27,18 @@ import java.util.List;
 /**
  * @author zhenyu.nie created on 2018/10/18 19:37
  * @author 肖哥弹架构 update on 2021/09/07
- * agent服务启动入口
+ * @desc agent服务启动入口
  * 如果Java版本高于java 9，启动agent需要在启动参数中添加--add-opens=java.base/jdk.internal.perf=ALL-UNNAMED
  */
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
+    /**
+     * Agent启动入口
+     * @param args  启动参数
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
 
         logger.info(getString("OS Name:", System.getProperty("os.name")));
@@ -47,12 +52,18 @@ public class Main {
         for (String arg : ManagementFactory.getRuntimeMXBean().getInputArguments()) {
             logger.info("Command line argument: {}", arg);
         }
-
+        //启动Agent客户端
         AgentClient.getInstance().start();
-
+        //守护
         System.in.read();
     }
 
+    /**
+     * 内容项格式化
+     * @param key  键
+     * @param value 值
+     * @return  格式化内容
+     */
     private static String getString(String key, String value) {
         return String.format("%-23s%s", key, value);
     }

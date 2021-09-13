@@ -24,11 +24,15 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author leix.xie
- * @date 2019/7/4 10:59
- * @describe
+ * @author 肖哥弹架构
+ * @date 2021/09/06
+ * @describe 根据{catalina.base}|{bistoury.cache}|{java.io.tmpdir}
  */
 public class BistouryFileStoreUtil {
+
+    /**
+     * 获取缓存或临时存储地址函数
+     */
     private static Supplier<String> store = Suppliers.memoize(() -> {
         String path = System.getProperty("bistoury.cache", null);
 
@@ -40,17 +44,18 @@ public class BistouryFileStoreUtil {
         }
 
         File file = new File(path);
-        file.mkdirs();
+             file.mkdirs();
 
         try {
             path = file.getCanonicalPath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e){e.printStackTrace();}
 
         return path;
     });
 
+    /**
+     * @return 获取缓存或临时存储地址
+     */
     public static String getBistouryStore() {
         return store.get();
     }

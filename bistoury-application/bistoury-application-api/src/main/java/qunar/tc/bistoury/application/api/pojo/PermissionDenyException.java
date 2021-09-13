@@ -18,9 +18,9 @@
 package qunar.tc.bistoury.application.api.pojo;
 
 /**
- * @author leix.xie
- * @date 2019/7/4 15:40
- * @describe
+ * @author 肖哥弹架构
+ * @update 2021/09/06
+ * @describe 权限拒绝异常
  */
 public class PermissionDenyException extends RuntimeException {
     public PermissionDenyException() {

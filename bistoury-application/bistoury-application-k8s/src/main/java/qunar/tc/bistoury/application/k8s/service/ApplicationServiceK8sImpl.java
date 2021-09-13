@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2019/8/14
  */
 @Service
-public class ApplicationServiceImpl implements ApplicationService {
+public class ApplicationServiceK8sImpl implements ApplicationService {
 
     @Override
     public List<Application> getAllApplications() {

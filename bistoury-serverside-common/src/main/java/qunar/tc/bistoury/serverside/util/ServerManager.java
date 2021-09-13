@@ -30,33 +30,34 @@ import java.lang.management.ManagementFactory;
 import java.util.Set;
 
 /**
- * @author leix.xie
- * @date 2019/7/11 20:25
- * @describe
+ * @author 肖哥弹架构
+ * @date 2021/09/06
+ * @describe 服务管理,主要用于服务端进程编号、端口获取
  */
 public class ServerManager {
     private static final Logger logger = LoggerFactory.getLogger(ServerManager.class);
 
-    public static void printServerConfig() {
-        System.out.println();
-        System.out.println("Server Config");
-        System.out.println("--------------------------------");
-        System.out.println("Server IP    : " + LocalHost.getLocalHost());
-        System.out.println("Server Host  : " + LocalHost.getHostName());
-        System.out.println("Server PID   : " + getPid());
-        System.out.println("Server Port  : " + getTomcatPort());
-        System.out.println();
-    }
-
+    /**
+     * 获取进程编号
+     * @return 进程编号
+     */
     public static int getPid() {
         String name = ManagementFactory.getRuntimeMXBean().getName();
         return Integer.valueOf(name.substring(0, name.indexOf(64)));
     }
 
+    /**
+     * 获取Tomcat服务端口
+     * @return 服务端口
+     */
     public static int getTomcatPort() {
         return Integer.valueOf(getTomcatPortBySystemProperty());
     }
 
+    /**
+     * 通过JVM环境配置获取Tomcat端口
+     * @return 服务端口
+     */
     private static String getTomcatPortBySystemProperty() {
         String port = System.getProperty("bistoury.tomcat.port");
         if (Strings.isNullOrEmpty(port)) {
@@ -65,6 +66,10 @@ public class ServerManager {
         return port;
     }
 
+    /**
+     * 通过JMX方式获取Tomcat端口
+     * @return Tomcat端口
+     */
     private static String getTomcatPortByMxBean() {
         String tomcatPort = "-1";
         try {

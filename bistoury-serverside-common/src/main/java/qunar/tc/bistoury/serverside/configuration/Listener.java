@@ -19,9 +19,14 @@
 package qunar.tc.bistoury.serverside.configuration;
 
 /**
- * @author keli.wang
- * @since 2018-11-27
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc 动态配置监听策略
  */
 public interface Listener<T> {
+	/**
+	 * 加载配置变化
+	 * @param config 配置实体
+	 */
 	void onLoad(T config);
 }
