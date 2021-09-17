@@ -29,34 +29,65 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 
+/**
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc RSA 编码解码
+ */
 public class RSAEncryption implements Encryption {
-
+    /**
+     * 加密算法类型
+     */
     private static final String ALGORITHM = "RSA";
-
-
+    /**
+     * RSA公钥
+     */
     private static final String RSA_PUBLIC_KEY = "/rsa-public-key.pem";
-
+    /**
+     * RSA私钥
+     */
     private static final String RSA_PRIVATE_KEY = "/rsa-private-key.pem";
-
+    /**
+     * 公钥组件
+     */
     private PublicKey publicKey;
+    /**
+     * 私钥组件
+     */
     private PrivateKey privateKey;
 
     public RSAEncryption() throws IOException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException {
         this(RSA_PUBLIC_KEY, RSA_PRIVATE_KEY);
     }
 
+    /**
+     * RSA加解密构造方法
+     * @param publicKeyPath 公钥文件地址
+     * @param privateKeyPath 私钥文件地址
+     * @throws IOException
+     * @throws InvalidKeyException
+     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
     public RSAEncryption(String publicKeyPath, String privateKeyPath) throws IOException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException {
         this.publicKey = EncryptionUtils.loadRSAPublicKey(publicKeyPath);
         this.privateKey = EncryptionUtils.loadRSAPrivateKey(privateKeyPath);
 
         // fail fast
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-        cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        Cipher  cipher = Cipher.getInstance(ALGORITHM);//RSA加密算法
+                cipher.init(Cipher.ENCRYPT_MODE, publicKey);//加密
+                cipher = Cipher.getInstance(ALGORITHM);
+                cipher.init(Cipher.DECRYPT_MODE, privateKey);//解密
 
     }
 
+    /**
+     *  RSA加密
+     * @param source 原文
+     * @return 密文
+     * @throws EncryptException
+     */
     @Override
     public String encrypt(String source) throws EncryptException {
         Cipher cipher;
@@ -70,6 +101,12 @@ public class RSAEncryption implements Encryption {
         }
     }
 
+    /**
+     * RSA解密
+     * @param source 密文
+     * @return 原文
+     * @throws DecryptException
+     */
     @Override
     public String decrypt(String source) throws DecryptException {
         Cipher cipher;

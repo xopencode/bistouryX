@@ -22,10 +22,25 @@ import qunar.tc.bistoury.remoting.protocol.RequestData;
 import java.io.IOException;
 
 /**
- * @author zhenyu.nie created on 2019 2019/5/16 15:52
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 请求对象编码解码
  */
 public interface RequestEncryption {
+    /**
+     * 解码
+     * @param in 输入内容
+     * @return 请求数据对象
+     * @throws IOException
+     */
     RequestData<String> decrypt(String in) throws IOException;
 
+    /**
+     * 编码
+     * @param requestData 请求数据
+     * @param key 键
+     * @return 编码后的值
+     * @throws IOException
+     */
     String encrypt(RequestData<String> requestData, final String key) throws IOException;
 }

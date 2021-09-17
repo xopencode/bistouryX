@@ -20,14 +20,33 @@ import com.google.common.base.Supplier;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc Mock 度量信息注册管理
+ */
 class MockRegistry implements BistouryMetricRegistry {
 
+    /**
+     * 实例化 MockCounter
+     */
     private static final BistouryCounter COUNTER = new MockCounter();
-
+    /**
+     * 实例化  MockMeter
+     */
     private static final BistouryMeter METER = new MockMeter();
-
+    /**
+     * 实例化 MockTimer
+     */
     private static final BistouryTimer TIMER = new MockTimer();
 
+    /**
+     * 不支持
+     * @param name 项名
+     * @param tags 标记
+     * @param values 值
+     * @param supplier 回调函数
+     */
     @Override
     public void newGauge(String name, String[] tags, String[] values, Supplier<Double> supplier) {
 
@@ -48,11 +67,20 @@ class MockRegistry implements BistouryMetricRegistry {
         return TIMER;
     }
 
+    /**
+     * 不支持
+     * @param name 项名
+     * @param tags 标记
+     * @param values 值
+     */
     @Override
     public void remove(String name, String[] tags, String[] values) {
 
     }
 
+    /**
+     * MockCounter类
+     */
     private static class MockCounter implements BistouryCounter {
 
         @Override
@@ -76,6 +104,9 @@ class MockRegistry implements BistouryMetricRegistry {
         }
     }
 
+    /**
+     * MockMeter类
+     */
     private static class MockMeter implements BistouryMeter {
 
         @Override
@@ -89,6 +120,9 @@ class MockRegistry implements BistouryMetricRegistry {
         }
     }
 
+    /**
+     * MockTimer类
+     */
     private static class MockTimer implements BistouryTimer {
 
         @Override

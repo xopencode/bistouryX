@@ -22,24 +22,61 @@ import org.apache.curator.framework.state.ConnectionStateListener;
 import java.util.List;
 
 /**
- * @author leix.xie
- * @date 2019-08-09 12:07
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc ZK客户端
  */
 public interface ZKClient {
+    /**
+     * 删除服务地址
+     * @param path 服务地址
+     * @throws Exception
+     */
     void deletePath(String path) throws Exception;
 
+    /**
+     * 获取服务提供者地址列表
+     * @param path 服务地址
+     * @return 提供者地址列表
+     * @throws Exception
+     */
     List<String> getChildren(String path) throws Exception;
 
+    /**
+     *  判断服务地址是否存在
+     * @param path 服务地址
+     * @return 是否存在服务提供者
+     */
     boolean checkExist(String path);
 
+    /**
+     * 添加持久服务提供者地址
+     * @param path 服务提供者地址
+     * @throws Exception
+     */
     void addPersistentNode(String path) throws Exception;
 
+    /**
+     *  添加临时服务提供者地址
+     * @param path
+     * @return
+     * @throws Exception
+     */
     String addEphemeralNode(String path) throws Exception;
 
+    /**
+     * 添加链接状态监听器
+     * @param listener
+     */
     void addConnectionChangeListener(ConnectionStateListener listener);
 
+    /**
+     * 引用数增加
+     */
     void incrementReference();
 
+    /**
+     * 关闭客户端
+     */
     void close();
 }

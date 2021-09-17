@@ -19,18 +19,40 @@ package qunar.tc.bistoury.serverside.common.encryption;
 
 import java.io.IOException;
 
+/**
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 编码解码策略
+ */
 public interface Encryption {
-
+    /**
+     * 编码
+     * @param source 输入源
+     * @return 编码内容
+     * @throws EncryptException
+     */
     String encrypt(String source) throws EncryptException;
 
+    /**
+     *  解码
+     * @param source 输入源
+     * @return 解码内容
+     * @throws DecryptException
+     */
     String decrypt(String source) throws DecryptException;
 
+    /**
+     * 编码异常类
+     */
     class EncryptException extends IOException {
         public EncryptException(Throwable cause) {
             super(cause);
         }
     }
 
+    /**
+     * 解码异常类
+     */
     class DecryptException extends IOException {
         public DecryptException(Throwable cause) {
             super(cause);

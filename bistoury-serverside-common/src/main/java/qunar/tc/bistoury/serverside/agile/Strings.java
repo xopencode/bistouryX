@@ -17,7 +17,11 @@
 
 package qunar.tc.bistoury.serverside.agile;
 
-
+/**
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 字符串工具类
+ */
 public final class Strings {
 
     /**

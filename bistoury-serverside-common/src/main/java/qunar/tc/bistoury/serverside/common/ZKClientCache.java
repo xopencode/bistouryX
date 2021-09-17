@@ -25,17 +25,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author leix.xie
- * @date 2019/7/4 19:57
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc ZK客户端缓存管理
  */
 public class ZKClientCache {
     private static final Logger logger = LoggerFactory.getLogger(ZKClientCache.class);
-
+    /**
+     * ZK客户端缓存容器
+     */
     private static final Map<String, ZKClient> CACHE = new HashMap<>();
-
+    /**
+     * 本地ZK配置文件
+     */
     private static final String LOCAL_ZK_TAG_FILE = "/tmp/bistoury/proxy.conf";
 
+    /**
+     * 根据ZK地址获取ZK客户端
+     * @param address ZK服务器地址
+     * @return ZK客户端
+     */
     public synchronized static ZKClient get(String address) {
 
         logger.info("get zkclient for {}", address);
@@ -50,14 +59,24 @@ public class ZKClientCache {
         return client;
     }
 
-
+    /**
+     * 获取ZK客户端
+     * @param address ZK地址
+     * @return ZK客户端
+     */
     private static ZKClient getZkClient(final String address) {
         if (isLocal()) {
+            //如果/tmp/bistoury/proxy.conf文件存在,则为MockZK
             return new MockZkClientImpl(LOCAL_ZK_TAG_FILE);
         }
+        //创建ZK客户端
         return new ZKClientImpl(address);
     }
 
+    /**
+     * 判断是否为本地配置文件
+     * @return
+     */
     private static boolean isLocal() {
         File file = new File(LOCAL_ZK_TAG_FILE);
         return file.exists() && file.isFile();

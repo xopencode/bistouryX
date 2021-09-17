@@ -19,9 +19,15 @@ package qunar.tc.bistoury.serverside.metrics;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author keli.wang
- * @since 2018/11/21
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 是Histogram跟Meter的一个组合，比如要统计当前请求 的速率和处理时间
  */
 public interface BistouryTimer {
+    /**
+     * 更新使用时间单位
+     * @param duration 持续时间
+     * @param unit 时间单位
+     */
     void update(long duration, TimeUnit unit);
 }

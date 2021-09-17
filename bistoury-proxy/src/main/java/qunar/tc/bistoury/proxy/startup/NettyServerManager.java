@@ -60,28 +60,44 @@ import java.util.Map;
 public class NettyServerManager {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyServerManager.class);
-
+    /**
+     * 注册中心信息管理
+     */
     @Autowired
     private RegistryStore registryStore;
-
+    /**
+     * 交互命令存储
+     */
     @Autowired
     private CommunicateCommandStore commandStore;
-
+    /**
+     * UI连接存储
+     */
     @Autowired
     private UiConnectionStore uiConnectionStore;
-
+    /**
+     * Agent连接存储管理
+     */
     @Autowired
     private AgentConnectionStore agentConnectionStore;
-
+    /**
+     * 会话管理
+     */
     @Autowired
     private SessionManager sessionManager;
-
+    /**
+     * 应用服务管理
+     */
     @Autowired
     private AppServerService appServerService;
-
+    /**
+     * 编号生成器
+     */
     @Autowired
     private IdGenerator sessionIdGenerator;
-
+    /**
+     * Agent信息处理策略
+     */
     @Autowired
     private List<AgentMessageProcessor> agentMessageProcessors;
 

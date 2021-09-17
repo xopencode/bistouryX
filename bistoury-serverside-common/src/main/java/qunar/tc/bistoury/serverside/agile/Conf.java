@@ -20,14 +20,27 @@ package qunar.tc.bistoury.serverside.agile;
 import java.util.Map;
 
 /**
- * @author miao.yang susing@gmail.com
- * @since 14-6-5.
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc Map值转配置类操作
  */
 public abstract class Conf {
 
+    /**
+     *  创建Conf配置值操作类
+     * @param map Map值
+     * @return
+     */
     public static Conf fromMap(final Map<String, String> map) {
-
+        /**
+         * 创建配置对象
+         */
         return new Conf() {
+            /**
+             * 配置方法全部从MAP取值
+             * @param key 键
+             * @return 值
+             */
             @Override
             protected String getProperty(String key) {
                 return map.get(key);
@@ -35,6 +48,11 @@ public abstract class Conf {
         };
     }
 
+    /**
+     * 抽象属性值获取方法
+     * @param key 键
+     * @return 值
+     */
     protected abstract String getProperty(String key);
 
     public String getString(String name, String def) {

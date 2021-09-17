@@ -17,15 +17,30 @@
 package qunar.tc.bistoury.serverside.metrics;
 
 /**
- * @author keli.wang
- * @since 2018/11/21
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 计数类统计，可以进行加或减，也可以进行归零操作，所 有的操作都是在旧值的基础上进行的
  */
 public interface BistouryCounter {
+    /**
+     * +1
+     */
     void inc();
 
+    /**
+     * 增加指定数
+     * @param n +n
+     */
     void inc(long n);
 
+    /**
+     * -1
+     */
     void dec();
 
+    /**
+     * 减少指定数
+     * @param n -n
+     */
     void dec(long n);
 }

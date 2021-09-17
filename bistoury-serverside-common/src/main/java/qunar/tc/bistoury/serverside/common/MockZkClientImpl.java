@@ -28,13 +28,16 @@ import java.io.File;
 import java.util.List;
 
 /**
- * @author leix.xie
- * @date 2019-08-09 12:06
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc 本地ZK Mock实现类，用于提供固定服务地址
  */
 public class MockZkClientImpl implements ZKClient {
     private static final Logger logger = LoggerFactory.getLogger(MockZkClientImpl.class);
 
+    /**
+     * MOCK ZK 固定服务配置文件地址
+     */
     private String zkChildrenPath;
 
     public MockZkClientImpl(final String zkChildrenPath) {
@@ -46,6 +49,12 @@ public class MockZkClientImpl implements ZKClient {
         logger.info("zk mock\t delete path, path: {}", path);
     }
 
+    /**
+     *  获取所有MOCK ZK 服务配置地址值
+     * @param path  MOCK ZK 固定服务配置文件地址
+     * @return 服务配置地址值
+     * @throws Exception
+     */
     @Override
     public List<String> getChildren(String path) throws Exception {
         List<String> list = Files.readLines(new File(zkChildrenPath), Charsets.UTF_8);

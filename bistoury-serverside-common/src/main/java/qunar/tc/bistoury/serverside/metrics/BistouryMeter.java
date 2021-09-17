@@ -17,11 +17,19 @@
 package qunar.tc.bistoury.serverside.metrics;
 
 /**
- * @author keli.wang
- * @since 2018/11/21
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 用于计算一段时间内的计量，通常用于计算接口调用频率
  */
 public interface BistouryMeter {
+    /**
+     * 度量
+     */
     void mark();
 
+    /**
+     * 度量 +n
+     * @param n 值
+     */
     void mark(long n);
 }

@@ -25,13 +25,19 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author leix.xie
- * @date 2019/8/26 16:32
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-10
+ * @desc H2数据库工具类
  */
 public class H2DataBeseUtil {
+    /**
+     * h2配置文件地址
+     */
     private static final String portPath = "/tmp/bistoury/h2port.conf";
 
+    /**
+     * @return 获取H2连接地址
+     */
     public String getUrl() {
         try {
             String port = getPort();
@@ -42,6 +48,10 @@ public class H2DataBeseUtil {
         return "jdbc:h2:tcp://localhost//tmp/bistoury/h2/bistoury;MODE=MYSQL;TRACE_LEVEL_SYSTEM_OUT=2;AUTO_SERVER=TRUE;";
     }
 
+    /**
+     * @return 获取H2端口
+     * @throws IOException
+     */
     public static String getPort() throws IOException {
         return Files.readFirstLine(new File(portPath), Charsets.UTF_8);
     }

@@ -20,18 +20,52 @@ package qunar.tc.bistoury.serverside.metrics;
 import com.google.common.base.Supplier;
 
 /**
- * @author leix.xie
- * @date 2019/7/8 15:10
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 度量信息注册
  */
 public interface BistouryMetricRegistry {
+    /**
+     * 创建指定业务项瞬时值的测量
+     * @param name 项名
+     * @param tags 标记
+     * @param values 值
+     * @param supplier 回调函数
+     */
     void newGauge(final String name, final String[] tags, final String[] values, final Supplier<Double> supplier);
 
+    /**
+     *  创建指定业务项总数统计
+     * @param name 项名
+     * @param tags 标记
+     * @param values 值
+     * @return BistouryCounter
+     */
     BistouryCounter newCounter(final String name, final String[] tags, final String[] values);
 
+    /**
+     * 创建指定业务项某时间维度计量
+     * @param name 项名
+     * @param tags 标记
+     * @param values 值
+     * @return BistouryMeter
+     */
     BistouryMeter newMeter(final String name, final String[] tags, final String[] values);
 
+    /**
+     * 创建指定业务项时间指标统计
+     * @param name 项名
+     * @param tags 标记
+     * @param values 值
+     * @return BistouryTimer
+     */
     BistouryTimer newTimer(final String name, final String[] tags, final String[] values);
 
+    /**
+     * 删除某业务项统计值
+     * @param name 项名
+     * @param tags 标记
+     * @param values 值
+     */
     void remove(final String name, final String[] tags, final String[] values);
 }

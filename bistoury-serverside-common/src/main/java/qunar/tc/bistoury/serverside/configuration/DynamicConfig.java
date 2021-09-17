@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * @author 肖哥弹架构
  * @date 2022-09-10
- * @desc 动态配置能力
+ * @desc 动态配置接口
  */
 public interface DynamicConfig<T> {
     void addListener(Listener<T> listener);

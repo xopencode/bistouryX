@@ -34,9 +34,20 @@ import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-
+/**
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 编解码工具类
+ */
 public class EncryptionUtils {
 
+    /**
+     * 根据文件加载公钥对象
+     * @param path rsa-public-key.pem地址
+     * @return 公钥对象
+     * @throws IOException
+     * @throws InvalidKeySpecException
+     */
     public static PublicKey loadRSAPublicKey(String path) throws IOException, InvalidKeySpecException {
         ClassPathResource pathResource = new ClassPathResource(path);
         byte[] bb = FileUtil.readBytes(pathResource.getInputStream());
@@ -49,6 +60,13 @@ public class EncryptionUtils {
         }
     }
 
+    /**
+     * 根据文件加载私钥对象
+     * @param path rsa-private-key.pem 地址
+     * @return 私钥对象
+     * @throws IOException
+     * @throws InvalidKeySpecException
+     */
     public static PrivateKey loadRSAPrivateKey(String path) throws IOException, InvalidKeySpecException {
         ClassPathResource pathResource = new ClassPathResource(path);
         byte[] bb = FileUtil.readBytes(pathResource.getInputStream());
@@ -61,6 +79,14 @@ public class EncryptionUtils {
         }
     }
 
+    /**
+     * 加载DES秘钥
+     * @param path 秘钥文件地址
+     * @return 秘钥键
+     * @throws InvalidKeySpecException
+     * @throws IOException
+     * @throws InvalidKeyException
+     */
     public static SecretKey loadDesKey(String path) throws InvalidKeySpecException, IOException, InvalidKeyException {
         String s = FileUtil.readString(new File(EncryptionUtils.class.getResource(path).getPath()), Charsets.UTF_8.name());
         DESKeySpec spec = new DESKeySpec(Base64.decode(s));
@@ -72,21 +98,48 @@ public class EncryptionUtils {
         }
     }
 
+    /**
+     * 创建密钥对
+     * @param algorithm 算法
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException
+     */
     public static KeyPair createKeyPair(String algorithm) throws NoSuchAlgorithmException, NoSuchProviderException {
         KeyPairGenerator generator = KeyPairGenerator.getInstance(algorithm);
         generator.initialize(1024);
         return generator.generateKeyPair();
     }
 
+    /**
+     * 创建秘钥
+     * @param algorithm 加密算法
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException
+     */
     public static SecretKey createKey(String algorithm) throws NoSuchAlgorithmException, NoSuchProviderException {
         KeyGenerator generator = KeyGenerator.getInstance(algorithm);
         return generator.generateKey();
     }
 
+    /**
+     * 存储公钥或私钥
+     * @param dstFile 目标文件
+     * @param key 公钥或私钥
+     * @throws IOException
+     */
     public static void serializeKey(String dstFile, Key key) throws IOException {
         Files.write(Base64.encode(key.getEncoded()), new File(dstFile), Charsets.UTF_8);
     }
 
+    /**
+     * DES解码
+     * @param data 被解密数据
+     * @param keyString 秘钥键
+     * @return 原文
+     * @throws Encryption.DecryptException
+     */
     public static String decryptDes(String data, String keyString) throws Encryption.DecryptException {
         try {
             Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
@@ -100,6 +153,13 @@ public class EncryptionUtils {
         }
     }
 
+    /**
+     * DES加密
+     * @param data 被加密数据
+     * @param keyString 秘钥键
+     * @return 密文
+     * @throws Encryption.EncryptException
+     */
     public static String encryptDes(String data, String keyString) throws Encryption.EncryptException {
         try {
             Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
