@@ -1,3 +1,8 @@
+/**
+ * 获取URL中指定参数
+ * @param name
+ * @returns {*}
+ */
 function getUrlParam(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
     var r = window.location.search.substr(1).match(reg)
@@ -27,8 +32,11 @@ var REQ_TYPE_CPU_THREAD_NUM = 22
 var minuteTotalCPUTime
 var momentTotalCPUTime
 
+//IP地址
 ip = getUrlParam('ip')
+//应用编号
 appCode = getUrlParam('appCode')
+//主机地址
 host = getUrlParam('host')
 
 // 表格数据展示
@@ -643,6 +651,12 @@ function encryptByDES(message, key) {
     return encrypted.toString()
 }
 
+/**
+ * 发送请求
+ * @param machine 机器地址
+ * @param type
+ * @param input
+ */
 var send = function (machine, type, input) {
 
     if (machine == null) {

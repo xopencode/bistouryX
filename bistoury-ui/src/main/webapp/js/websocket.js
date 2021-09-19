@@ -40,6 +40,14 @@
         });
     }
 
+    /**
+     * 代理服务请求
+     * @param agentIp
+     * @param host
+     * @param stopFunc
+     * @param handleResultFunc
+     * @returns {*}
+     */
     function getWs(agentIp, host, stopFunc, handleResultFunc) {
         var deferred = $.Deferred();
         if (!agentIp) {

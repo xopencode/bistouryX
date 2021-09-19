@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author 肖哥弹架构
  * @date 2022-09-10
- * @desc 动态配置能力
+ * @desc 配置文件修改监听者
  */
 class ConfigWatcher {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigWatcher.class);

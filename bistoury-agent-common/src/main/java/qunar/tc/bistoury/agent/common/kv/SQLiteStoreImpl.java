@@ -21,57 +21,103 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author leix.xie
- * @date 2019/12/2 15:24
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc KVSQLite数据库存储管理
+ *
+ * bistoury表结构
+ * --------------------------------------------
+ * |b_key|b_value|b_expire_time|b_compress_way|
+ * --------------------------------------------
  */
 public class SQLiteStoreImpl implements KvDb {
+    /**
+     * 日志管理
+     */
     private static final Logger logger = LoggerFactory.getLogger(SQLiteStoreImpl.class);
-
+    /**
+     * 创建bistoury表
+     */
     private static final String INIT_TABLE_SQL = "CREATE TABLE IF NOT EXISTS bistoury (" +
-            "b_key VARCHAR(200) NOT NULL PRIMARY KEY DEFAULT ''," +
-            "b_value BLOB NOT NULL DEFAULT ''," +
-            "b_expire_time BIGINT NOT NULL DEFAULT 0," +
-            "b_compress_way TINYTEXT NOT NULL DEFAULT 0" +
-            ");";
+                                                                                        "b_key VARCHAR(200) NOT NULL PRIMARY KEY DEFAULT ''," +
+                                                                                        "b_value BLOB NOT NULL DEFAULT ''," +
+                                                                                        "b_expire_time BIGINT NOT NULL DEFAULT 0," +
+                                                                                        "b_compress_way TINYTEXT NOT NULL DEFAULT 0" +
+                                                                                        ");";
+    /**
+     * 为bistoury表创建索引
+     */
     private static final String CREATE_INDEX_SQL = "CREATE INDEX idx_b_expire_time ON bistoury (b_expire_time);";
-
+    /**
+     * 为bistoury表插入数据
+     */
     private static final String INSERT_SQL = "insert into bistoury values (?, ?, ?, ?)";
+    /**
+     * 更新bistoury表数据
+     */
     private static final String UPDATE_SQL = "update bistoury set b_value=?,b_expire_time=?,b_compress_way=? where b_key=?";
+    /**
+     * 查询bistoury表数据
+     */
     private static final String SELECT_SQL = "select b_value, b_compress_way from bistoury where b_key = ?";
+    /**
+     * 查询bistoury表过期数据
+     */
     private static final String QUERY_EXPIRE_KEY = "select b_key from bistoury where b_expire_time <= ? limit 0,?";
-
+    /**
+     * bistoury数据库存储文件
+     */
     private static final String db_file = "bistoury.db";
-
+    /**
+     * bistoury.db存储路径
+     */
     private String path;
+    /**
+     * 文件有效期多少秒
+     */
     private long ttl;
-
+    /**
+     * 元数据存储
+     */
     private final MetaStore metaStore;
-    //private final DataSource dataSource;
+    /**
+     * private final DataSource dataSource;
+     */
     private Connection connection;
 
     /**
+     * 构造方法
      * @param path
      * @param ttl  Unit s
      */
     public SQLiteStoreImpl(String path, long ttl) {
+        //确认存储路径存在
         FileUtil.ensureDirectoryExists(path);
+        //存储多少秒
         this.ttl = TimeUnit.SECONDS.toMillis(ttl);
+        // bistoury.db存储路径
         this.path = FileUtil.dealPath(path, db_file);
-
+        //获取元数据存储
         this.metaStore = MetaStores.getMetaStore();
+        //初始化
         init();
     }
 
+    /**
+     * 初始化方法
+     */
     private void init() {
+        //bistoury.db文件存在则标记已初始化
         boolean isInit = false;
         final File file = new File(this.path);
         if (file.exists()) {
             isInit = true;
         }
         try {
+            //创建数据库连接
             connection = DriverManager.getConnection("jdbc:sqlite:" + this.path);
             if (!isInit) {
+                //声明对象,并创建表与索引
                 try (Statement stmt = connection.createStatement()) {
                     stmt.executeUpdate(INIT_TABLE_SQL);
                     stmt.executeUpdate(CREATE_INDEX_SQL);
@@ -89,7 +135,7 @@ public class SQLiteStoreImpl implements KvDb {
         }
 
         final SQLiteDeleteDataGentle sqLiteDeleteDataGentle = new SQLiteDeleteDataGentle(this);
-        sqLiteDeleteDataGentle.start();
+                                     sqLiteDeleteDataGentle.start();
 
         Runtime.getRuntime().addShutdownHook(new Thread("sqlite resource claen") {
             @Override
@@ -104,6 +150,11 @@ public class SQLiteStoreImpl implements KvDb {
         });
     }
 
+    /**
+     * 根据表key字段获取sqlite数据
+     * @param key b_key表字段值
+     * @return b_value字段值
+     */
     @Override
     public String get(String key) {
         PreparedStatement pstmt = null;
@@ -130,6 +181,11 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 存储记录
+     * @param key  b_key表字段值
+     * @param value b_value字段值
+     */
     @Override
     public void put(String key, String value) {
         PreparedStatement pstmt = null;
@@ -156,7 +212,11 @@ public class SQLiteStoreImpl implements KvDb {
             }
         }
     }
-
+    /**
+     * 更新记录
+     * @param key  b_key表字段值
+     * @param value b_value字段值
+     */
     public void update(String key, String value) {
         PreparedStatement pstmt = null;
         final CompressData compressData = compress(value);
@@ -176,11 +236,16 @@ public class SQLiteStoreImpl implements KvDb {
             }
         }
     }
-
+    /**
+     * 批量插入记录
+     * @param data 批量记录
+     **/
     @Override
     public void putBatch(Map<String, String> data) {
         try {
+            //获取批量插入的数
             final int batchSize = metaStore.getIntProperty("sqlite.batch.save.size", 100);
+            //获取批量存储后休眠毫秒
             final long batchSleep = metaStore.getLongProperty("sqlite.batch.save.sleep.ms", 100);
             List<Map.Entry<String, String>> batch = new ArrayList<>(batchSize);
 
@@ -207,6 +272,11 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 批量插入记录
+     * insert into bistoury values (?, ?, ?, ?)
+     * @param batch 批量记录实体
+     */
     private void doPutBatch(List<Map.Entry<String, String>> batch) {
         PreparedStatement pstmt = null;
         boolean autoCommit = true;
@@ -224,7 +294,7 @@ public class SQLiteStoreImpl implements KvDb {
                     pstmt.setBytes(2, compressData.getData());
                     pstmt.setLong(3, expire_time);
                     pstmt.setInt(4, compressData.getWay());
-                    pstmt.addBatch();
+                    pstmt.addBatch();//添加批次
                 }
                 pstmt.executeBatch();
 
@@ -242,6 +312,12 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 删除指定键记录
+     * delete from bistoury where b_key in (?,?,?)
+     * @param keys 被删除键
+     * @return 删除记录数
+     */
     public int delete(List<String> keys) {
         PreparedStatement pstmt = null;
 
@@ -262,6 +338,13 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 获取bistoury表所有过期
+     * select b_key from bistoury where b_expire_time <= ? limit 0,?
+     * @param expireTimestamp 过期时间
+     * @param limit 限制返回记录条数
+     * @return 过期b_key列表
+     */
     public List<String> expireKey(long expireTimestamp, int limit) {
         List<String> res = Lists.newArrayList();
         PreparedStatement pstmt = null;
@@ -285,6 +368,12 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 构建批量删除记录语法
+     * delete from bistoury where b_key in (?,?,?)
+     * @param keys 被删除的键值
+     * @return 删除语法
+     */
     private static String getDeleteSql(List<String> keys) {
         List<String> newKeys = Lists.transform(keys, new Function<String, String>() {
             @Override
@@ -306,6 +395,11 @@ public class SQLiteStoreImpl implements KvDb {
         return sb.toString();
     }
 
+    /**
+     * 压缩
+     * @param data 被压缩数据
+     * @return 压缩后的数据实体
+     */
     private CompressData compress(final String data) {
         if (Strings.isNullOrEmpty(data)) {
             return new CompressData(CompressWay.NONE.way, new byte[0]);
@@ -322,6 +416,12 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 解压
+     * @param data 压缩数据
+     * @param way 压缩方式
+     * @return 解压后的数据
+     */
     private String unCompress(final byte[] data, final int way) {
         if (data == null) {
             return null;
@@ -338,6 +438,11 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 获取压缩枚举类型,字符串少于500则不压缩
+     * @param data 需要压缩的数据
+     * @return 压缩方式
+     */
     private CompressWay getCompressWay(final String data) {
         if (data.length() < 500) {
             return CompressWay.NONE;
@@ -345,8 +450,17 @@ public class SQLiteStoreImpl implements KvDb {
         return CompressWay.SNAPPY;
     }
 
+    /**
+     * 压缩数据实体
+     */
     private class CompressData {
+        /**
+         * 压缩数据方式
+         */
         private int way;
+        /**
+         * 压缩数据
+         */
         private byte[] data;
 
         public CompressData(int way, byte[] data) {
@@ -363,6 +477,9 @@ public class SQLiteStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 压缩枚举
+     */
     private enum CompressWay {
         NONE(0, new Function<String, byte[]>() {
             @Override
@@ -395,9 +512,17 @@ public class SQLiteStoreImpl implements KvDb {
                 }
             }
         });
-
+        /**
+         * 压缩方式(0,1)
+         */
         private int way;
+        /**
+         * 压缩函数
+         */
         private Function<String, byte[]> compress;
+        /**
+         * 解压函数
+         */
         private Function<byte[], String> uncompress;
 
         CompressWay(int way, Function<String, byte[]> compress, Function<byte[], String> uncompress) {

@@ -29,34 +29,51 @@ import java.util.Map;
 
 
 /**
- * @author: leix.xie
- * @date: 2019/1/7 11:19
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc KVRocksDB数据库存储管理
  */
 public class RocksDBStoreImpl implements KvDb {
-
+    /**
+     * 日志
+     */
     private static final Logger LOG = LoggerFactory.getLogger(RocksDBStoreImpl.class);
-
+    /**
+     * 最大 1024*1024 =1M
+     */
     private static final int MB_BYTE = 1048576;
 
+    /**
+     * 记载RocksDB库文件
+     */
     static {
         RocksDB.loadLibrary();
     }
 
+    /**
+     * 具备过期能力的DB对象
+     */
     private final TtlDB rocksDB;
 
+    /**
+     * 构造方法
+     * @param path 数据库文件地址
+     * @param ttl 记录过期时间
+     * @param maxCompactions 最大压缩数
+     */
     RocksDBStoreImpl(String path, int ttl, int maxCompactions) {
         try {
+            //数据库文件存放地址
             ensureDirectoryExists(path);
 
-            final Options options = new Options();
-            options.setCreateIfMissing(true);
-            options.setMaxBackgroundCompactions(maxCompactions);
-            options.setMaxOpenFiles(2);//RocksDB 会将打开的 SST 文件句柄缓存这，这样下次访问的时候就可以直接使用，而不需要重新在打开。
-            options.setWriteBufferSize(4 * MB_BYTE);//4M, memtable 的最大 size
-            options.setMaxWriteBufferNumber(4);//最大 memtable 的个数
-            options.setLevel0FileNumCompactionTrigger(4);//当有4个未进行Compact的文件时，达到触发Compact的条件
-
+            final Options   options = new Options();
+                            options.setCreateIfMissing(true);//如果不存在则创建
+                            options.setMaxBackgroundCompactions(maxCompactions);//最大压缩值
+                            options.setMaxOpenFiles(2);//RocksDB 会将打开的 SST 文件句柄缓存这，这样下次访问的时候就可以直接使用，而不需要重新在打开。
+                            options.setWriteBufferSize(4 * MB_BYTE);//4M, memtable 的最大 size
+                            options.setMaxWriteBufferNumber(4);//最大 memtable 的个数
+                            options.setLevel0FileNumCompactionTrigger(4);//当有4个未进行Compact的文件时，达到触发Compact的条件
+            //创建RocksDB对象
             this.rocksDB = TtlDB.open(options, path, ttl, false);
             LOG.info("open rocks db success, path:{}, ttl:{}", path, ttl);
 
@@ -66,6 +83,10 @@ public class RocksDBStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 创建数据库文件存放地址
+     * @param path 数据库文件地址
+     */
     private void ensureDirectoryExists(final String path) {
         File file = new File(path);
         if (!file.exists() || !file.isDirectory()) {
@@ -76,6 +97,11 @@ public class RocksDBStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 插入记录
+     * @param key 键
+     * @param value 值
+     */
     @Override
     public void put(String key, String value) {
         try {
@@ -90,6 +116,11 @@ public class RocksDBStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 获取记录
+     * @param key
+     * @return
+     */
     @Override
     public String get(String key) {
         try {
@@ -109,6 +140,10 @@ public class RocksDBStoreImpl implements KvDb {
         }
     }
 
+    /**
+     * 批量插入记录
+     * @param data 数据
+     */
     @Override
     public void putBatch(Map<String, String> data) {
         for (Map.Entry<String, String> entry : data.entrySet()) {

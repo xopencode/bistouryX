@@ -20,13 +20,28 @@ package qunar.tc.bistoury.agent.common.kv;
 import java.util.Map;
 
 /**
- * @author zhenyu.nie created on 2019 2019/1/8 17:20
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc KV数据库策略
  */
 public interface KvDb {
-
+    /**
+     * 获取存储值
+     * @param key
+     * @return
+     */
     String get(String key);
 
-    void put(String key, String value);
+    /**
+     * 存储值
+     * @param key 键
+     * @param value 值
+     */
+    void put(String key,String value);
 
+    /**
+     * 批量添加值
+     * @param data 数据
+     */
     void putBatch(Map<String, String> data);
 }

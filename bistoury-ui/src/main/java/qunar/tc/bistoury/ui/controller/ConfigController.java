@@ -31,6 +31,9 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 配置控制器
+ */
 @Controller
 @Component
 public class ConfigController {

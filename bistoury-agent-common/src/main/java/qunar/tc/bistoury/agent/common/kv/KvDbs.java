@@ -18,16 +18,27 @@
 package qunar.tc.bistoury.agent.common.kv;
 
 /**
- * @author zhenyu.nie created on 2019 2019/1/8 19:16
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc KV数据库单利管理
  */
 public class KvDbs {
-
+    /**
+     * 单利KVDB定义
+     */
     private static final KvDb kvDb;
 
+    /**
+     * 初始化
+     */
     static {
         kvDb = new KvDbWrapper();
     }
 
+    /**
+     * 获取DV数据库实例
+     * @return
+     */
     public static KvDb getKvDb() {
         return kvDb;
     }

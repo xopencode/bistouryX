@@ -27,7 +27,7 @@ import java.util.ServiceLoader;
  */
 public final class DynamicConfigLoader {
     /**
-     * 单利动态工厂
+     * 单利动态配置工厂
      */
     private static final DynamicConfigFactory FACTORY;
 
@@ -36,7 +36,8 @@ public final class DynamicConfigLoader {
      */
     static {
         //SPI插件机制对象
-        ServiceLoader<DynamicConfigFactory> factories = ServiceLoader.load(DynamicConfigFactory.class);
+        ServiceLoader<DynamicConfigFactory> factories
+                = ServiceLoader.load(DynamicConfigFactory.class);
         DynamicConfigFactory instance = null;
         //获取动态配置工厂,获取第一个则退出
         for (DynamicConfigFactory factory : factories) {

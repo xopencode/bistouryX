@@ -58,7 +58,7 @@ public class LocalDynamicConfig implements DynamicConfig<LocalDynamicConfig> {
      */
     private volatile Map<String, String> config;
     /**
-     * 配置目录
+     * 配置文件目录地址
      */
     private final String confDir;
     /**
