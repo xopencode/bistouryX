@@ -18,9 +18,9 @@
 package qunar.tc.bistoury.clientside.common.meta;
 
 /**
- * @author: leix.xie
- * @date: 2019/3/15 15:14
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-13
+ * @desc 元数据存储管理类
  */
 public class Numbers {
     private Numbers() {

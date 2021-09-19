@@ -21,7 +21,9 @@ package qunar.tc.bistoury.clientside.common.monitor;
 import static qunar.tc.bistoury.clientside.common.monitor.ValueType.*;
 
 /**
- * 指标类别
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc 度量指标类别枚举
  */
 public enum MetricType {
 

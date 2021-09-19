@@ -20,7 +20,7 @@ package qunar.tc.bistoury.agent.common.kv;
 /**
  * @author 肖哥弹架构
  * @date 2022-09-12
- * @desc KV数据库单利管理
+ * @desc KV数据库单利管理对象
  */
 public class KvDbs {
     /**

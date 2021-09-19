@@ -21,37 +21,117 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * @author zhenyu.nie created on 2019 2019/1/10 15:44
+ * @author 肖哥弹架构
+ * @date 2022-09-13
+ * @desc 元数据存储策略
  */
 public interface MetaStore {
-
+    /**
+     * 更新元数据
+     * @param attrs 元数据KV
+     */
     void update(Map<String, String> attrs);
 
+    /**
+     * 获取代理信息
+     * @return 代理信息
+     */
     Map<String, String> getAgentInfo();
 
+    /**
+     * 获取字符串属性值
+     * @param name
+     * @return
+     */
     String getStringProperty(String name);
 
+    /**
+     *  获取字符串属性值，无则返回默认值
+     * @param name
+     * @param def
+     * @return
+     */
     String getStringProperty(String name,String def);
 
+    /**
+     * 获取BOOLEAN值属性值
+     * @param name
+     * @return
+     */
     boolean getBooleanProperty(String name);
 
+    /**
+     * 获取Boolean属性值，无则返回默认值
+     * @param name
+     * @param def
+     * @return
+     */
     boolean getBooleanProperty(String name, boolean def);
 
+    /**
+     * 返回日期属性值
+     * @param name
+     * @return
+     */
     Date getDateProperty(String name);
 
+    /**
+     * 返回整数属性值
+     * @param name
+     * @return
+     */
     int getIntProperty(String name);
 
+    /**
+     * 返回整数属性值，无则返回默认值
+     * @param name
+     * @param def
+     * @return
+     */
     int getIntProperty(String name, int def);
 
+    /**
+     * 返回Long属性值，无则返回默认值
+     * @param name
+     * @return
+     */
     long getLongProperty(String name);
 
+    /**
+     * 返回Long属性值，无则返回默认值
+     * @param name
+     * @param def
+     * @return
+     */
     long getLongProperty(String name, long def);
 
+    /**
+     * 返回Float属性值
+     * @param name
+     * @return
+     */
     float getFloatProperty(String name);
 
+    /**
+     * 返回Float属性值，无则返回默认值
+     * @param name
+     * @param def
+     * @return
+     */
     float getFloatProperty(String name, float def);
 
+    /**
+     * 返回Double属性值
+     * @param name
+     * @return
+     */
     double getDoubleProperty(String name);
 
+    /**
+     * 返回Double属性值,无则返回默认值
+     * @param name
+     * @param def
+     * @return
+     */
     double getDoubleProperty(String name, double def);
 }

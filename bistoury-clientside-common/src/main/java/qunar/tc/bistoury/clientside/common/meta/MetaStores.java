@@ -18,12 +18,20 @@
 package qunar.tc.bistoury.clientside.common.meta;
 
 /**
- * @author zhenyu.nie created on 2019 2019/1/10 15:40
+ * @author 肖哥弹架构
+ * @date 2022-09-13
+ * @desc 元数据存储管理类
  */
 public class MetaStores {
-
+    /**
+     * 元数据存储对象
+     */
     private static final MetaStore metaStore = new DefaultMetaStore();
 
+    /**
+     * 获取元数据存储策略对象
+     * @return 元数据存储对象
+     */
     public static MetaStore getMetaStore() {
         return metaStore;
     }

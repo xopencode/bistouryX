@@ -73,7 +73,7 @@ public class SQLiteStoreImpl implements KvDb {
      */
     private String path;
     /**
-     * 文件有效期多少秒
+     * 记录有效期(秒)
      */
     private long ttl;
     /**
@@ -133,10 +133,14 @@ public class SQLiteStoreImpl implements KvDb {
             logger.error("init sqlite db error, path: {}, ttl: {}", this.path, ttl, e);
             throw new RuntimeException(e);
         }
-
+        /**
+         * 开启删除过期记录组件
+         */
         final SQLiteDeleteDataGentle sqLiteDeleteDataGentle = new SQLiteDeleteDataGentle(this);
                                      sqLiteDeleteDataGentle.start();
-
+        /**
+         * 关闭进程侯释放资源
+         */
         Runtime.getRuntime().addShutdownHook(new Thread("sqlite resource claen") {
             @Override
             public void run() {
@@ -190,6 +194,7 @@ public class SQLiteStoreImpl implements KvDb {
     public void put(String key, String value) {
         PreparedStatement pstmt = null;
         final CompressData compressData = compress(value);
+        //新记录过期时间
         final long expire_time = System.currentTimeMillis() + this.ttl;
         synchronized (connection) {
             try {

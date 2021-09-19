@@ -18,28 +18,23 @@
 package qunar.tc.bistoury.clientside.common.monitor;
 
 
+/**
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc 值类型枚举
+ */
 public enum ValueType {
 
     VALUE("数值"),
-    //
     MIN("最小值"),
-    //
     MAX("最大值"),
-    //
     MEAN("平均值"),
-    //
     STD("方差"),
-    //
-    P75(""),
-    //
-    P98(""),
-    //
+    P75("中位数百分之75"),
+    P98("中位数百分之98"),
     MEAN_RATE("TPS"),
-    //
     MIN_1("1分钟TPS"),
-    //
     MIN_5("5分钟TPS"),
-    //
     MIN_15("15分钟TPS");
 
     private final String text;

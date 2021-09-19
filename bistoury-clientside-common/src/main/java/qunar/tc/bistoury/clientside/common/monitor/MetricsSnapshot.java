@@ -20,18 +20,25 @@ package qunar.tc.bistoury.clientside.common.monitor;
 import java.util.List;
 
 /**
- * @author: leix.xie
- * @date: 2019/1/8 16:43
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc 度量数据快照
  */
 public class MetricsSnapshot {
+    /**
+     * 度量快照名
+     */
     private String name;
+    /**
+     * 快照时间
+     */
     private Long timestamp;
+    /**
+     * 度量数据
+     */
     private List<MetricsData> metricsData;
 
-    public MetricsSnapshot() {
-
-    }
+    public MetricsSnapshot() { }
 
     public MetricsSnapshot(String name, Long timestamp, List<MetricsData> metricsData) {
         this.name = name;

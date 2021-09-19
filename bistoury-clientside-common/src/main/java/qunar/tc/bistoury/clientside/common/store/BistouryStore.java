@@ -23,9 +23,9 @@ import java.io.File;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * @author leix.xie
- * @date 2019-07-22 15:46
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc Bistoury存储管理
  */
 public class BistouryStore {
 

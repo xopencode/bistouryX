@@ -20,13 +20,22 @@ package qunar.tc.bistoury.clientside.common.monitor;
 import java.util.Arrays;
 
 /**
- * @author: leix.xie
- * @date: 2019/1/7 11:58
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc 度量数据
  */
 public class MetricsData {
+    /**
+     * 度量名
+     */
     private String name;
+    /**
+     * 度量类型
+     */
     private int type;
+    /**
+     * 度量数据
+     */
     private float[] data;
 
     public MetricsData() {

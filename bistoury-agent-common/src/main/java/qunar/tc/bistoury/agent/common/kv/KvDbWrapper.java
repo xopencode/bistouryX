@@ -20,9 +20,10 @@ public class KvDbWrapper implements KvDb {
      */
     private static final Logger LOG = LoggerFactory.getLogger(KvDbWrapper.class);
     /**
-     * 默认存储周期3天 线程监控数据
+     * 默认存储周期3天(259200秒) 线程监控数据
      */
     private static final int DEFAULT_TTL = (int) TimeUnit.DAYS.toSeconds(3);
+
     /**
      * rocksdb数据库
      */
