@@ -16,10 +16,6 @@
  */
 
 package qunar.tc.bistoury.agent.common.pid;
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
 
 import qunar.tc.bistoury.agent.common.pid.bean.Arguments;
 import qunar.tc.bistoury.agent.common.pid.bean.Res;
@@ -30,7 +26,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc JPS处理策略
+ */
 public class Jps {
+    /**
+     * JPS参数处理对象
+     */
     private static Arguments arguments;
 
     public static void main(String[] var0) {
@@ -43,6 +47,11 @@ public class Jps {
         }
     }
 
+    /**
+     * 执行JPS命令
+     * @param param 参数
+     * @param res 结果
+     */
     public static void executeJps(String[] param, Res<List<String>> res) {
         List<String> result = new ArrayList<>();
         res.setData(result);

@@ -20,14 +20,26 @@ package qunar.tc.bistoury.agent.common.pid.bean;
 import java.util.Arrays;
 
 /**
- * @author: leix.xie
- * @date: 2019/3/13 17:17
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc 进程信息实体
  */
 public class PsInfo {
+    /**
+     * 权限角色
+     */
     private String user;
+    /**
+     * 进程编号
+     */
     private int pid;
+    /**
+     * 进程启动执行命令
+     */
     private String command;
+    /**
+     * 启动参数
+     */
     private String[] params;
 
     public PsInfo(String user, int pid, String command, String[] params) {

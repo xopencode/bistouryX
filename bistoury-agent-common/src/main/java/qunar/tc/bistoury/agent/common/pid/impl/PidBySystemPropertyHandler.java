@@ -20,17 +20,25 @@ package qunar.tc.bistoury.agent.common.pid.impl;
 import qunar.tc.bistoury.agent.common.pid.PidHandler;
 
 /**
- * @author leix.xie
- * @date 2019/7/11 20:19
- * @describe
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc 从系统环境配置参数中获取PID
  */
 public class PidBySystemPropertyHandler extends AbstractPidHandler implements PidHandler {
 
+    /**
+     * 优先级
+     * @return 优先级值
+     */
     @Override
     public int priority() {
         return Priority.FROM_SYSTEM_PROPERTY_PRIORITY;
     }
 
+    /**
+     * 从JVM 参数{bistoury.user.pid}中获取PID值
+     * @return pid
+     */
     @Override
     protected int doGetPid() {
         return Integer.valueOf(System.getProperty("bistoury.user.pid", "-1"));

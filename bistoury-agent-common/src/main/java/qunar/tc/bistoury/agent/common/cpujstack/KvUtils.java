@@ -20,7 +20,9 @@ package qunar.tc.bistoury.agent.common.cpujstack;
 import com.google.common.base.Strings;
 
 /**
- * @author zhenyu.nie created on 2019 2019/1/9 18:19
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc CPU JSTACK  KV 工具类
  */
 public class KvUtils {
 

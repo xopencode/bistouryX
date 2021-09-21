@@ -18,7 +18,9 @@
 package qunar.tc.bistoury.agent.common.task;
 
 /**
- * @author zhenyu.nie created on 2019 2019/1/8 17:13
+ * @author 肖哥弹架构
+ * @date 2022-09-19
+ * @desc Agent全局任务工厂
  */
 public interface AgentGlobalTaskFactory {
 

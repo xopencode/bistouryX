@@ -18,15 +18,21 @@
 package qunar.tc.bistoury.agent.common.pid.impl;
 
 /**
- * @author: leix.xie
- * @date: 2019/3/13 17:27
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc 优先级
  */
 public class Priority {
-
+    /**
+     *  系统属性优先级
+     */
     public static final int FROM_SYSTEM_PROPERTY_PRIORITY = Integer.MIN_VALUE;
-
+    /**
+     * JPS优先级
+     */
     public static final int FROM_JPS_PRIORITY = 10000;
-
+    /**
+     * PS优先级
+     */
     public static final int FROM_PS_PRIORITY = 20000;
 }

@@ -22,15 +22,22 @@ import org.slf4j.LoggerFactory;
 import qunar.tc.bistoury.agent.common.pid.PidHandler;
 
 /**
- * @author zhenyu.nie created on 2019 2019/4/3 14:29
+ * @author 肖哥弹架构
+ * @date 2022-09-14
+ * @desc PID抽象类（异常处理）
  */
 public abstract class AbstractPidHandler implements PidHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractPidHandler.class);
 
+    /**
+     * 公共方法（异常如何处理）
+     * @return
+     */
     @Override
     public final int getPid() {
         try {
+            //指定钩子方法
             return doGetPid();
         } catch (Exception e) {
             logger.error("get pid error, {}", getClass().getName(), e);
@@ -38,5 +45,9 @@ public abstract class AbstractPidHandler implements PidHandler {
         }
     }
 
+    /**
+     * 获取PID抽象方法（钩子方法）
+     * @return pid
+     */
     protected abstract int doGetPid();
 }

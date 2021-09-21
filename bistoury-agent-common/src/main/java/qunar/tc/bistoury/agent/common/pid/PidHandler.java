@@ -18,13 +18,19 @@
 package qunar.tc.bistoury.agent.common.pid;
 
 /**
- * @author: leix.xie
- * @date: 2019/3/13 17:14
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc PID处理策略
  */
 public interface PidHandler {
-
+    /**
+     * 获取优先级策略
+     * @return 优先级值
+     */
     int priority();
 
+    /**
+     * @return 进程编号
+     */
     int getPid();
 }

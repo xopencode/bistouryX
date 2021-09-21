@@ -32,33 +32,43 @@ import java.util.List;
 import java.util.ServiceLoader;
 
 /**
- * @author: leix.xie
- * @date: 2019/3/7 15:21
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc PID工具类
  */
 public class PidUtils {
-
+    /**
+     * 日志
+     */
     private static final Logger logger = LoggerFactory.getLogger(PidUtils.class);
-
+    /**
+     * PID处理策略实例容器
+     */
     private static final List<PidHandler> PID_HANDLERS = initPidHandler();
 
+    /**
+     *  初始化所有的PidHandler实现类
+     * @return 所有Pidhandler实例
+     */
     private static List<PidHandler> initPidHandler() {
         List<PidHandler> handlers = Lists.newArrayList();
-
+        //默认pid处理策略
         handlers.add(new PidBySystemPropertyHandler());
-
+        //是否开启bistoury.pid.handler.jps.enable
         if (Boolean.parseBoolean(System.getProperty("bistoury.pid.handler.jps.enable", "true"))) {
             handlers.add(new PidByJpsHandler());
         }
-
+        //是否开启bistoury.pid.handler.ps.enable
         if (Boolean.parseBoolean(System.getProperty("bistoury.pid.handler.ps.enable", "true"))) {
             handlers.add(new PidByPsHandler());
         }
-
+        //通过插件获取所有的PidHandlerFactory实现类
         ServiceLoader<PidHandlerFactory> handlerFactories = ServiceLoader.load(PidHandlerFactory.class);
+        //循环所有的工厂,创建PidHandler实例
         for (PidHandlerFactory factory : handlerFactories) {
             handlers.add(factory.create());
         }
+        //工具优先级排序
         Collections.sort(handlers, new Comparator<PidHandler>() {
             @Override
             public int compare(PidHandler o1, PidHandler o2) {
@@ -68,7 +78,11 @@ public class PidUtils {
         return ImmutableList.copyOf(handlers);
     }
 
+    /**
+     * @return 获取进程编号,获取不到则为-1
+     */
     public static int getPid() {
+        //循环所有的策略直到获取到进程编号
         for (PidHandler handler : PID_HANDLERS) {
             int pid = handler.getPid();
             if (pid > 0) {

@@ -20,18 +20,30 @@ package qunar.tc.bistoury.agent.common.cpujstack;
 import java.util.List;
 
 /**
- * @author zhenyu.nie created on 2019 2019/1/9 14:15
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc 线程信息
  */
 public class ThreadInfo {
-
+    /**
+     * 线程编号
+     */
     private String id;
-
+    /**
+     * 线程名
+     */
     private String name;
-
+    /**
+     * 线程状态
+     */
     private String state;
-
+    /**
+     * 线程锁定信息
+     */
     private List<String> lockOn;
-
+    /**
+     * 每分钟CPU占用比
+     */
     private int minuteCpuTime;
 
     /**
@@ -39,7 +51,9 @@ public class ThreadInfo {
      * 为了和低版本的agent保持兼容,所以沿用之前的字段名字
      */
     private int cpuTime;
-
+    /**
+     * 线程栈信息
+     */
     private String stack;
 
     public ThreadInfo() {

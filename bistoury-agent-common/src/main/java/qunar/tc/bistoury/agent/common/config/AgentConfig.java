@@ -20,29 +20,49 @@ package qunar.tc.bistoury.agent.common.config;
 import qunar.tc.bistoury.clientside.common.meta.MetaStore;
 
 /**
- * @author zhenyu.nie created on 2019 2019/3/25 14:37
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc Agent配置
  */
 public class AgentConfig {
 
-
+    /**
+     * Agent元数据存储
+     */
     private final MetaStore metaStore;
 
     public AgentConfig(MetaStore metaStore) {
         this.metaStore = metaStore;
     }
 
+    /**
+     * 是否开启堆直方图
+     * @return
+     */
     public boolean isHeapHistoOn() {
         return metaStore.getBooleanProperty("heapJMapHistoOn", false);
     }
 
+    /**
+     * 获取内存堆直方图存储大小
+     * @return
+     */
     public int getHeapHistoStoreSize() {
         return metaStore.getIntProperty("heapHisto.store.size", 100);
     }
 
+    /**
+     * 获取Agent信息刷新间隔
+     * @return
+     */
     public int getAgentInfoRefreshInterval() {
         return metaStore.getIntProperty("agent.refresh.interval.min", 10);
     }
 
+    /**
+     * 是否开启CPU Stack功能
+     * @return
+     */
     public boolean isCpuJStackOn() {
         return metaStore.getBooleanProperty("cpuJStackOn", false);
     }

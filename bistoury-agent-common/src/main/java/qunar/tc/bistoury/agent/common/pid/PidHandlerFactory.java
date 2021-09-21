@@ -18,9 +18,13 @@
 package qunar.tc.bistoury.agent.common.pid;
 
 /**
- * @author zhenyu.nie created on 2019 2019/7/24 15:20
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc PID处理工厂
  */
 public interface PidHandlerFactory {
-
+    /**
+     * @return 进程编号处理策略
+     */
     PidHandler create();
 }

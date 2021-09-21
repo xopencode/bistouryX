@@ -18,12 +18,18 @@
 package qunar.tc.bistoury.agent.common.pid.bean;
 
 /**
- * @author: leix.xie
- * @date: 2019/3/13 17:16
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc JAVA 进程服务信息实体
  */
 public class JpsInfo {
+    /**
+     * JAVA 进程编号
+     */
     private int pid;
+    /**
+     * JAVA 启动类
+     */
     private String clazz;
 
     public JpsInfo(int pid, String clazz) {

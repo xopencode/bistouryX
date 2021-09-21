@@ -18,13 +18,22 @@
 package qunar.tc.bistoury.agent.common.pid.bean;
 
 /**
- * @author: leix.xie
- * @date: 2019/3/13 17:16
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-12
+ * @desc JPS响应结果对象
  */
 public class Res<T> {
+    /**
+     * 状态码
+     */
     private int code;
+    /**
+     * 响应信息
+     */
     private String message;
+    /**
+     * 响应数据
+     */
     private T data;
 
     public int getCode() {
