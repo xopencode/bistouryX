@@ -25,19 +25,35 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @author zhenyu.nie created on 2019 2019/3/19 16:19
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc Java process管理者
  */
 public class JavaProcesses {
-
+    /**
+     * 日志
+     */
     private static final Logger logger = LoggerFactory.getLogger(JavaProcesses.class);
-
+    /**
+     * 进程索引编号
+     */
     private static final AtomicLong index = new AtomicLong(0);
-
+    /**
+     * 是否关闭进程
+     */
     private static boolean shutdown = false;
-
+    /**
+     * 进程管理容器《进程索引编号，JAVA进程》
+     */
     private static final Map<Long, Process> processes = Maps.newConcurrentMap();
 
+    /**
+     * 静态块，添加进程关闭信号处理
+     */
     static {
+        /**
+         * 关闭bistoury进程后，关闭所有管理进程
+         */
         Runtime.getRuntime().addShutdownHook(new Thread("process-shutdown-clear") {
             @Override
             public void run() {
@@ -45,7 +61,11 @@ public class JavaProcesses {
             }
         });
     }
-
+    /**
+     * 将进程注册到{processes}容器中
+     * @param process 进程
+     * @return 进程存储索引编号
+     */
     public static long register(Process process) {
         long i = index.getAndIncrement();
         logger.debug("register java process: {}", i);
@@ -60,11 +80,18 @@ public class JavaProcesses {
         return i;
     }
 
+    /**
+     * 从{processes}容器中删除对应的进程
+     * @param index 进程编号
+     */
     public static void remove(long index) {
         logger.debug("remove java process: {}", index);
         processes.remove(index);
     }
 
+    /**
+     * 关闭管理的所有进程
+     */
     public static void clear() {
         synchronized (JavaProcesses.class) {
             shutdown = true;

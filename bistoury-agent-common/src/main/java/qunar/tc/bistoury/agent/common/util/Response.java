@@ -18,14 +18,26 @@
 package qunar.tc.bistoury.agent.common.util;
 
 /**
- * @author: leix.xie
- * @date: 2019/1/7 15:17
- * @describe：
+ * @author 肖哥弹架构
+ * @date 2022-09-19
+ * @desc 请求响应结果对象
  */
 public class Response {
+    /**
+     * 响应类型
+     */
     private String type;
+    /**
+     * 响应状态
+     */
     private int status;
+    /**
+     * 响应信息
+     */
     private String message;
+    /**
+     * 响应结果数据
+     */
     private Object data;
 
     public Response(String type, int status, String message) {

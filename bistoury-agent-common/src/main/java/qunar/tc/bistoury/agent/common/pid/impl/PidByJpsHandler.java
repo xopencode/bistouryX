@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * @author 肖哥弹架构
  * @date 2022-09-14
- * @desc 获取Tomcat启动的进程PID，且通过PS获取PID策略
+ * @desc 通过JPS命令获取JAVA进程的PID
  */
 public class PidByJpsHandler extends AbstractPidHandler implements PidHandler {
     /**

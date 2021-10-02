@@ -18,10 +18,16 @@
 package qunar.tc.bistoury.agent.common;
 
 /**
- * @author zhenyu.nie created on 2019 2019/7/16 16:56
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 关闭进程生产管理
  */
 public class ClosableProcesses {
-
+    /**
+     * 关闭进程生产（根据OS环境判断）
+     * @param process
+     * @return
+     */
     public static ClosableProcess wrap(Process process) {
         if (isUnixProcess(process)) {
             return new UnixProcess(process);
@@ -30,9 +36,16 @@ public class ClosableProcesses {
         }
     }
 
+    /**
+     * 判断是否为unix进程
+     * @param process 进程
+     * @return 是否为unix
+     */
     private static boolean isUnixProcess(Process process) {
         try {
+            //获取进程
             Class<? extends Process> clazz = process.getClass();
+            //进程等于UNIXProcess
             return clazz.getName().equals("java.lang.UNIXProcess");
         } catch (Exception e) {
             return false;

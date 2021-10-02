@@ -21,9 +21,13 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
- * @author zhenwei.liu created on 2015 2015/1/9 17:54
+ * @author 肖哥弹架构
+ * @date 2022-09-19
+ * @desc 日期工具类
  */
 public class DateUtils {
-
+    /**
+     * 日期格式化(yyyyMMddHHmm)
+     */
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("yyyyMMddHHmm");
 }

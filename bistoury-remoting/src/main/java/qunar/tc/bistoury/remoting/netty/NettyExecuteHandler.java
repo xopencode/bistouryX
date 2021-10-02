@@ -27,24 +27,44 @@ import qunar.tc.bistoury.remoting.protocol.RemotingHeader;
 import java.util.Map;
 
 /**
- * @author sen.chai
- * @date 15-6-16
+ * @author 肖哥弹架构
+ * @date 2022-09-16
+ * @desc 响应结果处理
  */
 public class NettyExecuteHandler implements ResponseHandler {
-
+    /**
+     * 日志
+     */
     private static final Logger logger = LoggerFactory.getLogger(NettyExecuteHandler.class);
-
+    /**
+     * 响应结果输出
+     */
     private ResponseWriter responseWriter = ResponseWriter.getInstance();
-
+    /**
+     * 远程协议头
+     */
     private RemotingHeader header;
-
+    /**
+     * Netty通道处理上下文
+     */
     private ChannelHandlerContext ctx;
 
+    /**
+     * 构造方法
+     * @param header 远程协议头
+     * @param ctx netty处理上下文
+     */
     public NettyExecuteHandler(RemotingHeader header, ChannelHandlerContext ctx) {
         this.header = header;
         this.ctx = ctx;
     }
 
+    /**
+     * 创建NettyExecuteHandler
+     * @param remotingHeader
+     * @param ctx
+     * @return
+     */
     public static NettyExecuteHandler of(RemotingHeader remotingHeader, ChannelHandlerContext ctx) {
         return new NettyExecuteHandler(remotingHeader, ctx);
     }

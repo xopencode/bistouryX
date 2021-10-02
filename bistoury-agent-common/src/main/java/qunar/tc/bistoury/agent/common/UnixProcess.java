@@ -26,26 +26,41 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 
 /**
- * @author zhenyu.nie created on 2019 2019/7/16 17:01
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc Unix进程流读取操作
  */
 public class UnixProcess extends ClosableProcess {
-
+    /**
+     * 空缓存常量
+     */
     private static final byte[] EMPTY_BYTES = new byte[0];
-
+    /**
+     * 缓存大小
+     */
     private static final int BUF_SIZE = 4 * 1024;
-
+    /**
+     * 内容缓存
+     */
     private final byte[] buffer = new byte[BUF_SIZE];
-
+    /**
+     * 限流操控对象
+     */
     private final RateLimiter rateLimiter = RateLimiter.create(16); //限制每秒read的次数
-
+    /**
+     * 被装饰进程
+     */
     private final Process delegate;
-
+    /**
+     * Process的hasExited属性
+     */
     private final Field hasExited;
 
     UnixProcess(Process delegate) {
         super(delegate);
         this.delegate = delegate;
         try {
+            //获取Process的hasExited字段
             hasExited = delegate.getClass().getDeclaredField("hasExited");
             hasExited.setAccessible(true);
         } catch (Exception e) {
@@ -55,7 +70,6 @@ public class UnixProcess extends ClosableProcess {
 
     /**
      * 与jdk8中isAlive效果一样，用于小于8的jdk
-     *
      * @return
      */
     private boolean isProcessAlive() {
@@ -92,6 +106,13 @@ public class UnixProcess extends ClosableProcess {
         }
     }
 
+    /**
+     * 读取流中可用的数据
+     * @param inputStream 进程输入流
+     * @param buffer 缓冲区
+     * @return 输入流中可用的字节数
+     * @throws IOException
+     */
     private int readAvailableBytes(InputStream inputStream, byte[] buffer) throws IOException {
         int available = inputStream.available();
         if (available <= 0) {

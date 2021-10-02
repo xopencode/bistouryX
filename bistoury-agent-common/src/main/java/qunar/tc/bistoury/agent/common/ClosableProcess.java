@@ -22,52 +22,91 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * @author zhenyu.nie created on 2019 2019/3/14 17:42
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc process 关闭抽象装饰类
  */
 public abstract class ClosableProcess extends Process implements Closeable {
-
+    /**
+     * JDK 进程对象
+     */
     private final Process delegate;
-
+    /**
+     * 进程编号（自增长）
+     */
     private final long id;
 
     ClosableProcess(Process delegate) {
         this.delegate = delegate;
+        //获取存储后的进程分配的编号
         this.id = JavaProcesses.register(delegate);
     }
 
+    /**
+     * 输出流
+     * @return
+     */
     @Override
     public OutputStream getOutputStream() {
         return delegate.getOutputStream();
     }
 
+    /**
+     * 输入流
+     * @return
+     */
     @Override
     public InputStream getInputStream() {
         return delegate.getInputStream();
     }
 
+    /**
+     * 错误流
+     * @return
+     */
     @Override
     public InputStream getErrorStream() {
         return delegate.getErrorStream();
     }
 
+    /**
+     * 让当前线程处于等待状态
+     * @return
+     * @throws InterruptedException
+     */
     @Override
     public int waitFor() throws InterruptedException {
         return delegate.waitFor();
     }
 
+    /**
+     * @return 返回子进程退出值
+     */
     @Override
     public int exitValue() {
         return delegate.exitValue();
     }
 
+    /**
+     * 进程销毁
+     */
     @Override
     public void destroy() {
         delegate.destroy();
+        //删除销毁的进程分配编号
         JavaProcesses.remove(id);
     }
 
+    /**
+     * 抽象读取进程字节内容
+     * @return 读取字节内容
+     * @throws Exception
+     */
     public abstract byte[] read() throws Exception;
 
+    /**
+     * 销毁进程
+     */
     @Override
     public void close() {
         destroy();

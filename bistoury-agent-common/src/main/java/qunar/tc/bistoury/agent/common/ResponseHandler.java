@@ -20,33 +20,84 @@ package qunar.tc.bistoury.agent.common;
 import java.util.Map;
 
 /**
- * @author sen.chai
- * @date 15-6-15
+ * @author 肖哥弹架构
+ * @date 2022-09-13
+ * @desc 响应处理策略
  */
 public interface ResponseHandler {
-
+    /**
+     * 是否可写
+     * @return
+     */
     boolean isWritable();
 
+    /**
+     * 是否已激活
+     * @return
+     */
     boolean isActive();
 
+    /**
+     * 处理响应数据
+     * @param line 数据
+     */
     void handle(String line);
 
+    /**
+     * 处理响应数据
+     * @param code 响应状态码
+     * @param line 响应数据
+     */
     void handle(int code, String line);
 
+    /**
+     * 处理响应数据
+     * @param code 编号
+     * @param data 响应内容
+     */
     void handle(int code, byte[] data);
 
+    /**
+     * 处理响应数据
+     * @param dataBytes 响应内容
+     */
     void handle(byte[] dataBytes);
 
+    /**
+     * 处理响应数据
+     * @param errorCode 错误编码
+     */
     void handleError(int errorCode);
 
+    /**
+     * 处理响应数据
+     * @param error 错误编码
+     */
     void handleError(String error);
 
+    /**
+     * 处理响应数据
+     * @param throwable 异常处理
+     */
     void handleError(Throwable throwable);
 
+    /**
+     * 处理EOF
+     */
     void handleEOF();
 
+    /**
+     * 处理EOF
+     * @param exitCode 异常编码
+     */
     void handleEOF(int exitCode);
 
+    /**
+     * 处理响应数据
+     * @param code 编码
+     * @param data 响应数据
+     * @param responseHeader 响应协议头数据
+     */
     void handle(int code, byte[] data, Map<String, String> responseHeader);
 }
 

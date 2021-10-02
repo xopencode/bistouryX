@@ -25,17 +25,35 @@ import com.google.common.base.Strings;
  * @desc CPU JSTACK  KV 工具类
  */
 public class KvUtils {
-
+    /**
+     * JSTACK 前缀
+     */
     public static final String CPU_JSTACK_PREFIX = "cj-";
 
+    /**
+     * 获取线程名称
+     * @param timestamp 线程池
+     * @return 线程名
+     */
     public static String getThreadNumKey(String timestamp) {
         return CPU_JSTACK_PREFIX + timestamp + "-threadNum";
     }
 
+    /**
+     * 获取CPU线程每秒总消耗或瞬时消耗名称(不带线程编号)
+     * @param timestamp 时间戳
+     * @return
+     */
     public static String getThreadMomentCpuTimeKey(String timestamp) {
         return getThreadMomentCpuTimeKey(timestamp, null);
     }
 
+    /**
+     * 获取CPU线程每秒总消耗或瞬时消耗名称
+     * @param timestamp 时间戳
+     * @param threadId 线程编号
+     * @return 线程工作名称
+     */
     public static String getThreadMomentCpuTimeKey(String timestamp, String threadId) {
         if (Strings.isNullOrEmpty(threadId)) {
             return CPU_JSTACK_PREFIX + timestamp + "-totalCpuTime";
@@ -44,10 +62,21 @@ public class KvUtils {
         }
     }
 
+    /**
+     * 获取CPU线程总消耗或瞬时消耗名称(不带线程编号)
+     * @param timestamp 时间戳
+     * @return 线程工作名称
+     */
     public static String getThreadMinuteCpuTimeKey(String timestamp) {
         return getThreadMinuteCpuTimeKey(timestamp, null);
     }
 
+    /**
+     * 获取CPU线程每分钟总消耗或瞬时消耗名称
+     * @param timestamp 时间戳
+     * @param threadId 线程编号
+     * @return 线程工作名称
+     */
     public static String getThreadMinuteCpuTimeKey(String timestamp, String threadId) {
         if (Strings.isNullOrEmpty(threadId)) {
             return CPU_JSTACK_PREFIX + timestamp + "-totalMinuteCpuTime";
@@ -56,14 +85,29 @@ public class KvUtils {
         }
     }
 
+    /**
+     * 获取Jstack结果值名称
+     * @param timestamp 时间戳
+     * @return 结果名称
+     */
     public static String getJStackResultKey(String timestamp) {
         return CPU_JSTACK_PREFIX + timestamp + "-jstack";
     }
 
+    /**
+     * 获取线程信息名称
+     * @param timestamp 时间戳
+     * @return 线程信息名称
+     */
     public static String getThreadInfoKey(String timestamp) {
         return CPU_JSTACK_PREFIX + timestamp + "-threadinfo";
     }
 
+    /**
+     *  获取成功收集名称
+     * @param timestamp 时间戳
+     * @return 成功获取名称
+     */
     public static String getCollectSuccessKey(String timestamp) {
         return CPU_JSTACK_PREFIX + timestamp + "-success";
     }

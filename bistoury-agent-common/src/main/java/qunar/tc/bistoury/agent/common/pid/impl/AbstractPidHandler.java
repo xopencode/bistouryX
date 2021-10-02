@@ -24,7 +24,7 @@ import qunar.tc.bistoury.agent.common.pid.PidHandler;
 /**
  * @author 肖哥弹架构
  * @date 2022-09-14
- * @desc PID抽象类（异常处理）
+ * @desc PID获取抽象类（异常处理）
  */
 public abstract class AbstractPidHandler implements PidHandler {
 

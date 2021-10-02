@@ -23,22 +23,40 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 /**
- * @author zhenyu.nie created on 2019 2019/7/16 18:53
+ * @author 肖哥弹架构
+ * @date 2022-09-11
+ * @desc 通用进程流读取操作
  */
 public class NormalProcess extends ClosableProcess {
-
+    /**
+     * 缓存区大小
+     */
     private static final int BUF_SIZE = 4 * 1024;
-
+    /**
+     * 空字节常量
+     */
     private static final byte[] EMPTY_BYTES = new byte[0];
-
+    /**
+     * 限流组件
+     */
     private final RateLimiter rateLimiter = RateLimiter.create(16); //限制每秒read的次数
-
+    /**
+     * 缓存区
+     */
     private final byte[] buffer = new byte[BUF_SIZE];
 
+    /**
+     * @param delegate 被装饰的进程
+     */
     NormalProcess(Process delegate) {
         super(delegate);
     }
 
+    /**
+     * 流读取策略，每次读取一个Buffer空间的数据，如果没有则返回为空
+     * @return 流内容
+     * @throws Exception
+     */
     @Override
     public byte[] read() throws Exception {
         rateLimiter.acquire();
